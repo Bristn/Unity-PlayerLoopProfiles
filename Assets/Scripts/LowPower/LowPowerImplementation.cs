@@ -5,8 +5,18 @@ namespace Assets.Scripts.LowPower
 {
     public abstract class LowPowerImplementation
     {
-        private bool hasInteraction;
-        private bool tempInteraction;
+        public enum InteractionType
+        {
+            // Desktop
+            DSEKTOP_MOUSE_BUTTON,
+            DSEKTOP_MOUSE_MOVE,
+            DSEKTOP_MOUSE_SCROLL,
+            DSEKTOP_KEYBOARD_BUTTON,
+
+            // Android
+            ANDROID_TOUCH,
+        }
+
 
         private LowPowerTimeout timeout;
 
@@ -15,35 +25,9 @@ namespace Assets.Scripts.LowPower
             timeout = pTimeout;
         }
 
-        public bool HasInteraction
-        {
-            get => hasInteraction;
-            protected set
-            {
-                hasInteraction = value;
-                if (hasInteraction)
-                {
-                    timeout.Interaction++;
-                }
-                else
-                {
-                    timeout.Interaction--;
-                }
-            }
-        }
+        protected void AddInteraction(InteractionType pType) => timeout.AddInteraction(pType);
 
-        public bool TempInteraction
-        {
-            get => tempInteraction;
-            protected set
-            {
-                tempInteraction = value;
-                if (tempInteraction)
-                {
-                    timeout.TempInteraction = true;
-                }
-            }
-        }
+        protected void RemoveInteraction(InteractionType pType) => timeout.RemoveInteraction(pType);
 
         public abstract void Pause();
 

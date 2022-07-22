@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.LowLevel;
+using static Assets.Scripts.LowPower.LowPowerImplementation;
 
 namespace Assets.Scripts.LowPower.PlayerLoop
 {
@@ -20,7 +21,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
         public List<PlayerLoopSystem> AdditionalSystems { get; }
 
-        public Action InteractionAction { get; }
+        public Action<InteractionType> InteractionAction { get; }
 
         public Action TimeoutAction { get; }
 

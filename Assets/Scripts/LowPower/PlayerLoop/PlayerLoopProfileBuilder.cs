@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.LowLevel;
+using static Assets.Scripts.LowPower.LowPowerImplementation;
 using static Assets.Scripts.LowPower.PlayerLoop.IPlayerLoopProfile;
 
 namespace Assets.Scripts.LowPower.PlayerLoop
@@ -15,7 +16,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         private List<PlayerLoopSystem> additionalSystems = new List<PlayerLoopSystem>();
         private PlayerLoopSystem baseSystem = new PlayerLoopSystem();
 
-        private Action interactionAction  =null;
+        private Action<InteractionType> interactionAction = null;
         private Action timeoutAction = null;
         private int timeoutLength = 1;
 
@@ -32,7 +33,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             return this;
         }
 
-        public PlayerLoopProfileBuilder OnInteraction(Action pAction)
+        public PlayerLoopProfileBuilder OnInteraction(Action<InteractionType> pAction)
         {
             interactionAction = pAction;
             return this;

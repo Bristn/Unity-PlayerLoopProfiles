@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.LowLevel;
+using static Assets.Scripts.LowPower.LowPowerImplementation;
 using static Assets.Scripts.LowPower.PlayerLoop.IPlayerLoopProfile;
 
 namespace Assets.Scripts.LowPower.PlayerLoop
@@ -17,7 +18,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             FilterType pFilteredType, 
             List<PlayerLoopSystem> pAdditionalSystems, 
             PlayerLoopSystem pBaseSystem,
-            Action pInteractionAction,
+            Action<InteractionType> pInteractionAction,
             Action pTimeoutAction,
             float pTimeoutDuration)
         {
@@ -37,7 +38,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
         public List<PlayerLoopSystem> AdditionalSystems { get; private set; }
 
-        public Action InteractionAction { get; private set; }
+        public Action<InteractionType> InteractionAction { get; private set; }
 
         public Action TimeoutAction { get; private set; }
 

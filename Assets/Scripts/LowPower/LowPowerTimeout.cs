@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Assets.Scripts.LowPower.LowPowerImplementation;
 
 namespace Assets.Scripts.LowPower
 {
@@ -10,7 +11,6 @@ namespace Assets.Scripts.LowPower
         private IPlayerLoopProfile profile;
         private float timePassed;
         private bool timeoutHappened;
-        private int interaction;
         private bool tempInteraction;
 
         public IPlayerLoopProfile Profile 
@@ -24,39 +24,42 @@ namespace Assets.Scripts.LowPower
             }
         }
 
-        public int Interaction 
+
+        private HashSet<InteractionType> Interactions = new HashSet<InteractionType>();
+
+        public void AddInteraction(InteractionType pInteraction)
         {
-            get => interaction;
-            set
+            int prevCount = Interactions.Count;
+            if (pInteraction.IsTemporary())
             {
-                int prevValue = interaction;
-                interaction = value;
-                if (prevValue == 0 && interaction > 0)
+                if (prevCount == 0)
                 {
+                    tempInteraction = true;
                     if (Profile.InteractionAction != null)
                     {
-                        Profile.InteractionAction.Invoke();
+                        Profile.InteractionAction.Invoke(pInteraction);
                     }
                 }
+                return;
             }
-        }
 
-        public bool TempInteraction
-        {
-            get => tempInteraction;
-            set
+            Interactions.Add(pInteraction);
+
+            int curCount = Interactions.Count;
+            if (prevCount == 0 && curCount > 0)
             {
-                if (Interaction == 0)
+                if (Profile.InteractionAction != null)
                 {
-                    tempInteraction = value;
-                    if (tempInteraction && Profile.InteractionAction != null)
-                    {
-                        Profile.InteractionAction.Invoke();
-                    }
+                    Profile.InteractionAction.Invoke(pInteraction);
                 }
             }
         }
 
+        public void RemoveInteraction(InteractionType pInteraction)
+        {
+            Interactions.Remove(pInteraction);
+        }
+        
 
         public void UpdateTimeout()
         {
@@ -65,10 +68,10 @@ namespace Assets.Scripts.LowPower
                 return;
             }
 
-            if (Interaction > 0 || TempInteraction)
+            if (Interactions.Count > 0 || tempInteraction)
             {
                 timePassed = 0;
-                TempInteraction = false;
+                tempInteraction = false;
             }
             else
             {

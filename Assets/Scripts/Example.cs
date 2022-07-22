@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using static Assets.Scripts.LowPower.LowPowerImplementation;
 using static Assets.Scripts.LowPower.PlayerLoop.IPlayerLoopProfile;
 using static UnityEngine.PlayerLoop.Initialization;
 using static UnityEngine.PlayerLoop.PostLateUpdate;
@@ -63,15 +64,20 @@ namespace Assets.Scripts
             LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.NORMAL);
         }
 
-        private void InteractionActionIdle()
+        private void InteractionActionIdle(InteractionType pType)
         {
-            Debug.Log("Idle Interaction Happened!");
+            Debug.Log("Interaction: " + pType);
+            if (pType == InteractionType.DSEKTOP_MOUSE_SCROLL)
+            {
+                return;
+            }
+
             LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.NORMAL);
         }
 
         private void TimeoutActionActive()
         {
-            Debug.Log("Active Timeout Happened!");
+            Debug.Log("Timeout");
             LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.IDLE);
         }
 

@@ -47,54 +47,51 @@ namespace Assets.Scripts.LowPower.Windows
             if (!pArguments.ButtonPressed)
             {
                 pressedKeyboardButton.Remove(pArguments.ButtonCode);
-                activeButtonCount--;
+                if (pressedKeyboardButton.Count == 0)
+                {
+                    RemoveInteraction(InteractionType.DSEKTOP_KEYBOARD_BUTTON);
+                }
             }
             else if (!pressedKeyboardButton.Contains(pArguments.ButtonCode))
             {
+                if (pressedKeyboardButton.Count == 0)
+                {
+                    AddInteraction(InteractionType.DSEKTOP_KEYBOARD_BUTTON);
+                }
                 pressedKeyboardButton.Add(pArguments.ButtonCode);
-                activeButtonCount++;
             }
         }
+
+        private byte pressedMouseButton = 0;
 
         public void MouseInteraction(object pSender, MouseArgs pArguments)
         {
             if (pArguments.MouseMoved)
             {
-                TempInteraction = true; // TODO: ??
+                AddInteraction(InteractionType.DSEKTOP_MOUSE_MOVE);
+                return;
+            }
+
+            if (pArguments.MouseWheel)
+            {
+                AddInteraction(InteractionType.DSEKTOP_MOUSE_SCROLL);
                 return;
             }
 
             if (pArguments.ButtonPressed)
             {
-                activeButtonCount++;
+                if (pressedMouseButton == 0)
+                {
+                    AddInteraction(InteractionType.DSEKTOP_MOUSE_BUTTON);
+                }
+                pressedMouseButton++;
             }
             else if (pArguments.ButtonReleased)
             {
-                activeButtonCount--;
-            }
-        }
-
-
-        private int _activeButtonCount = 0;
-
-        private int activeButtonCount
-        {
-            get
-            {
-                return _activeButtonCount;
-            }
-            set
-            {
-                int prevValue = _activeButtonCount;
-                _activeButtonCount = value;
-
-                if (prevValue == 0 && _activeButtonCount > 0)
+                pressedMouseButton--;
+                if (pressedMouseButton == 0)
                 {
-                    HasInteraction = true;
-                }
-                else if (prevValue > 0 && _activeButtonCount == 0)
-                {
-                    HasInteraction = false;
+                    RemoveInteraction(InteractionType.DSEKTOP_MOUSE_BUTTON);
                 }
             }
         }
