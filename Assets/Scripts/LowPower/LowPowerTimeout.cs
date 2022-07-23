@@ -8,10 +8,11 @@ namespace Assets.Scripts.LowPower
 {
     public class LowPowerTimeout 
     {
-        private IPlayerLoopProfile profile;
         private float timePassed;
         private bool timeoutHappened;
         private bool tempInteraction;
+        private int interactionCount;
+        private IPlayerLoopProfile profile;
 
         public IPlayerLoopProfile Profile 
         {
@@ -24,12 +25,9 @@ namespace Assets.Scripts.LowPower
             }
         }
 
-
-        private HashSet<InteractionType> Interactions = new HashSet<InteractionType>();
-
         public void AddInteraction(InteractionType pInteraction)
         {
-            int prevCount = Interactions.Count;
+            int prevCount = interactionCount;
             if (pInteraction.IsTemporary())
             {
                 if (prevCount == 0)
@@ -43,9 +41,9 @@ namespace Assets.Scripts.LowPower
                 return;
             }
 
-            Interactions.Add(pInteraction);
+            interactionCount++;
 
-            int curCount = Interactions.Count;
+            int curCount = interactionCount;
             if (prevCount == 0 && curCount > 0)
             {
                 if (Profile.InteractionAction != null)
@@ -55,11 +53,7 @@ namespace Assets.Scripts.LowPower
             }
         }
 
-        public void RemoveInteraction(InteractionType pInteraction)
-        {
-            Interactions.Remove(pInteraction);
-        }
-        
+        public void RemoveInteraction(InteractionType pInteraction) => interactionCount--;
 
         public void UpdateTimeout()
         {
@@ -68,7 +62,7 @@ namespace Assets.Scripts.LowPower
                 return;
             }
 
-            if (Interactions.Count > 0 || tempInteraction)
+            if (interactionCount > 0 || tempInteraction)
             {
                 timePassed = 0;
                 tempInteraction = false;
