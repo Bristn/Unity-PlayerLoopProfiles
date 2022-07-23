@@ -13,7 +13,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
     {
 #region Filter
         private List<Type> filteredSystems = new List<Type>();
-        private FilterType filteredType = FilterType.REMOVE;
+        private FilterType filteredType = IPlayerLoopProfile.FilterType.REMOVE;
 
         public PlayerLoopProfileBuilder FilterSystems(params Type[] pSystems)
         {
@@ -27,7 +27,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             return this;
         }
 
-        public PlayerLoopProfileBuilder Filter(FilterType pType)
+        public PlayerLoopProfileBuilder FilterType(FilterType pType)
         {
             filteredType = pType;
             return this;
@@ -39,13 +39,13 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 #region Additional
         private List<PlayerLoopSystem> additionalSystems = new List<PlayerLoopSystem>();
 
-        public PlayerLoopProfileBuilder ExtraSystems(params PlayerLoopSystem[] pSystems)
+        public PlayerLoopProfileBuilder AdditionalSystems(params PlayerLoopSystem[] pSystems)
         {
             additionalSystems = pSystems.ToList();
             return this;
         }
 
-        public PlayerLoopProfileBuilder ExtraSystems(List<PlayerLoopSystem> pSystems)
+        public PlayerLoopProfileBuilder AdditionalSystems(List<PlayerLoopSystem> pSystems)
         {
             additionalSystems = pSystems;
             return this;
@@ -58,19 +58,19 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         private Action<InteractionType> interactionAction = null;
         private List<InteractionType> ignoredInteraction = new List<InteractionType>();
 
-        public PlayerLoopProfileBuilder OnInteraction(Action<InteractionType> pAction)
+        public PlayerLoopProfileBuilder InteractionCallback(Action<InteractionType> pAction)
         {
             interactionAction = pAction;
             return this;
         }
 
-        public PlayerLoopProfileBuilder IgnoredInteraction(params InteractionType[] pInteraction)
+        public PlayerLoopProfileBuilder IgnoreInteraction(params InteractionType[] pInteraction)
         {
             ignoredInteraction = pInteraction.ToList();
             return this;
         }
 
-        public PlayerLoopProfileBuilder IgnoredInteraction(List<InteractionType> pInteraction)
+        public PlayerLoopProfileBuilder IgnoreInteraction(List<InteractionType> pInteraction)
         {
             ignoredInteraction = pInteraction;
             return this;
@@ -83,7 +83,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         private Action timeoutAction = null;
         private int timeoutLength = 1;
 
-        public PlayerLoopProfileBuilder OnTimeout(Action pAction)
+        public PlayerLoopProfileBuilder TimeoutCallback(Action pAction)
         {
             timeoutAction = pAction;
             return this;

@@ -51,13 +51,13 @@ namespace Assets.Scripts
 
             IPlayerLoopProfile idle = new PlayerLoopProfileBuilder()
                 .FilterSystems(idleFilter)
-                .Filter(FilterType.KEEP)
-                .OnInteraction(InteractionActionIdle)
-                .IgnoredInteraction(InteractionType.DSEKTOP_MOUSE_MOVE)
+                .FilterType(FilterType.KEEP)
+                .InteractionCallback(InteractionActionIdle)
+                .IgnoreInteraction(InteractionType.DSEKTOP_MOUSE_MOVE)
                 .Build();
 
             IPlayerLoopProfile normal = new PlayerLoopProfileBuilder()
-               .OnTimeout(TimeoutActionActive)
+               .TimeoutCallback(TimeoutActionActive)
                .Build();
 
             LowPowerManager.Instance.playerLoopManager.AddProfile(Profile.IDLE, idle);
