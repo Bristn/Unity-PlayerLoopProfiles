@@ -26,7 +26,7 @@ namespace Assets.Scripts.LowPower.Android
             pluginInstance.CallStatic("setup", new InteractionCallback(this));
         }
 
-        public override void Pause()
+        public override void Pause() // TODO: When app times out: Handler sending message to a Handler on a dead thread 
         {
             pluginInstance.CallStatic("pause");
         }

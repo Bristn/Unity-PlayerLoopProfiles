@@ -60,7 +60,7 @@ namespace Assets.Scripts.LowPower
                 implementations.Add(new LowPowerWindows(timeout));
 #endif
 #if UNITY_ANDROID && !UNITY_EDITOR 
-                implementations.Add(new LowPowerAndroid());
+                implementations.Add(new LowPowerAndroid(timeout));
 #endif
             }
 

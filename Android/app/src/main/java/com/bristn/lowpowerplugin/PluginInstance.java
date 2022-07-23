@@ -22,14 +22,17 @@ public class PluginInstance {
     }
 
     public static void pause() {
+        window = UnityPlayer.currentActivity.getWindow();
         window.setCallback(originalCallback);
     }
 
     public static void resume() {
+        window = UnityPlayer.currentActivity.getWindow();
         window.setCallback(customCallback);
     }
 
     public static void clean() {
+        window = UnityPlayer.currentActivity.getWindow();
         window.setCallback(originalCallback);
     }
 
