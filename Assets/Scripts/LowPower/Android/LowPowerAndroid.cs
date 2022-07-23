@@ -5,11 +5,12 @@ using UnityEngine;
 
 namespace Assets.Scripts.LowPower.Android
 {
-    public class LowPowerAndroid : ILowPowerImplementation
+    public class LowPowerAndroid : LowPowerImplementation
     {
         private AndroidJavaClass unityClass;
         private AndroidJavaObject unityActivity;
         private AndroidJavaObject pluginInstance;
+        private byte activeTouchCount = 0;
 
         public LowPowerAndroid(LowPowerTimeout pTimeout) : base(pTimeout)
         {
@@ -44,35 +45,18 @@ namespace Assets.Scripts.LowPower.Android
         {
             if (pPressed)
             {
-                activeButtonCount++;
+                if (activeTouchCount == 0)
+                {
+                    AddInteraction(InteractionType.ANDROID_TOUCH);
+                }
+                activeTouchCount++;
             }
             else
             {
-                activeButtonCount--;
-            }
-        }
-
-
-        private int _activeButtonCount = 0;
-
-        private int activeButtonCount
-        {
-            get
-            {
-                return _activeButtonCount;
-            }
-            set
-            {
-                int prevValue = _activeButtonCount;
-                _activeButtonCount = value;
-
-                if (prevValue == 0 && _activeButtonCount > 0)
+                activeTouchCount--;
+                if (activeTouchCount == 0)
                 {
-                    HasInteraction = true;
-                }
-                else if (prevValue > 0 && _activeButtonCount == 0)
-                {
-                    HasInteraction = false;
+                    RemoveInteraction(InteractionType.ANDROID_TOUCH);
                 }
             }
         }

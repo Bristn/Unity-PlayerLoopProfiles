@@ -12,6 +12,8 @@ namespace Assets.Scripts.LowPower.Windows
     {
         private KeyboardInput keyboard;
         private MouseInput mouse;
+        private HashSet<byte> pressedKeyboardButton = new HashSet<byte>();
+        private byte pressedMouseButton = 0;
 
         public LowPowerWindows(LowPowerTimeout pTimeout) : base(pTimeout)
         {
@@ -40,8 +42,6 @@ namespace Assets.Scripts.LowPower.Windows
             mouse = null;
         }
 
-        private HashSet<byte> pressedKeyboardButton = new HashSet<byte>();
-
         public void KeyboardInteraction(object pSender, KeyboardArgs pArguments)
         {
             if (!pArguments.ButtonPressed)
@@ -61,8 +61,6 @@ namespace Assets.Scripts.LowPower.Windows
                 pressedKeyboardButton.Add(pArguments.ButtonCode);
             }
         }
-
-        private byte pressedMouseButton = 0;
 
         public void MouseInteraction(object pSender, MouseArgs pArguments)
         {
