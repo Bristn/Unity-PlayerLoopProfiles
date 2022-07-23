@@ -19,6 +19,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             List<PlayerLoopSystem> pAdditionalSystems, 
             PlayerLoopSystem pBaseSystem,
             Action<InteractionType> pInteractionAction,
+            List<InteractionType> pIgnoredInteraction,
             Action pTimeoutAction,
             float pTimeoutDuration)
         {
@@ -26,6 +27,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             FilteredSystems = pFilteredSystems;
             AdditionalSystems = pAdditionalSystems;
             InteractionAction = pInteractionAction;
+            IgnoredInteraction = pIgnoredInteraction;
             TimeoutAction = pTimeoutAction;
             TimeoutDuration = pTimeoutDuration;
 
@@ -39,6 +41,8 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         public List<PlayerLoopSystem> AdditionalSystems { get; private set; }
 
         public Action<InteractionType> InteractionAction { get; private set; }
+
+        public List<InteractionType> IgnoredInteraction { get; private set; }
 
         public Action TimeoutAction { get; private set; }
 

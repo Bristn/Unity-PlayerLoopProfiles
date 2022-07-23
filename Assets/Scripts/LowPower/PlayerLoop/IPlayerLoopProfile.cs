@@ -23,6 +23,8 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
         public Action<InteractionType> InteractionAction { get; }
 
+        public List<InteractionType> IgnoredInteraction { get; }
+
         public Action TimeoutAction { get; }
 
         public float TimeoutDuration { get; }

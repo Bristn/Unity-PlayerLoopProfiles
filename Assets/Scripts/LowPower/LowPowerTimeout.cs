@@ -27,6 +27,13 @@ namespace Assets.Scripts.LowPower
 
         public void AddInteraction(InteractionType pInteraction)
         {
+            // If the interaction is ignored simply return
+            if (Profile.IgnoredInteraction.Contains(pInteraction))
+            {
+                return;
+            }
+
+            // Check if this is a temporary interaction (Temporary = Only one state: Scrolled, Moved)
             int prevCount = interactionCount;
             if (pInteraction.IsTemporary())
             {
@@ -41,8 +48,8 @@ namespace Assets.Scripts.LowPower
                 return;
             }
 
+            // Check if this is the first interaction -> Invoke callback if so
             interactionCount++;
-
             int curCount = interactionCount;
             if (prevCount == 0 && curCount > 0)
             {
