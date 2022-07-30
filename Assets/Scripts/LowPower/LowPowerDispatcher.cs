@@ -18,10 +18,6 @@ namespace Assets.Scripts.LowPower
 
         private Queue<Action<int>> events = new Queue<Action<int>>();
         private Queue<int> parameters = new Queue<int>();
-
-        private Queue<Action<MouseState>> stateEvents = new Queue<Action<MouseState>>();
-        private Queue<MouseState> stateParameters = new Queue<MouseState>();
-
         private LowPowerTimeout timeout;
 
         LowPowerDesktop desktop;
@@ -51,15 +47,6 @@ namespace Assets.Scripts.LowPower
             }
         }
 
-        public void DispatchEvent(Action<MouseState> pEvent, MouseState pValue)
-        {
-            lock (stateEvents)
-            {
-                stateEvents.Enqueue(pEvent);
-                stateParameters.Enqueue(pValue);
-            }
-        }
-
         public void Update()
         {
             lock (events)
@@ -69,15 +56,6 @@ namespace Assets.Scripts.LowPower
                     events.Dequeue().Invoke(parameters.Dequeue());
                 }
             }
-
-            lock (stateEvents)
-            {
-                while (stateEvents.Count > 0)
-                {
-                    stateEvents.Dequeue().Invoke(stateParameters.Dequeue());
-                }
-            }
-
 
             timeout.UpdateTimeout();
 
