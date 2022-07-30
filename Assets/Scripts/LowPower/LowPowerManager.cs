@@ -1,12 +1,4 @@
-﻿#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-    using Assets.Scripts.LowPower.Windows;
-#endif
-
-#if UNITY_ANDROID && !UNITY_EDITOR
-    using Assets.Scripts.LowPower.Android;
-#endif
-
-using Assets.Scripts.LowPower.PlayerLoop;
+﻿using Assets.Scripts.LowPower.PlayerLoop;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,12 +51,7 @@ namespace Assets.Scripts.LowPower
             // Add all implementations
             if (Application.isPlaying)
             {
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-                implementations.Add(new LowPowerWindows(timeout));
-#endif
-#if UNITY_ANDROID && !UNITY_EDITOR 
-                implementations.Add(new LowPowerAndroid(timeout));
-#endif
+
             }
 
             // Add new component which reacts to pause, focus etc. events

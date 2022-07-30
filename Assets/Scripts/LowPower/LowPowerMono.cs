@@ -1,11 +1,3 @@
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-    using Assets.Scripts.LowPower.Windows;
-#endif
-
-#if UNITY_ANDROID && !UNITY_EDITOR
-    using Assets.Scripts.LowPower.Android;
-#endif
-
 using System.Collections.Generic;
 using UnityEngine;
 
