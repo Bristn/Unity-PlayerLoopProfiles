@@ -46,8 +46,6 @@ public class TestInput : MonoBehaviour
 
     private void Start()
     {
-        virtualMouse = InputSystem.AddDevice<Mouse>();
-
         actions.Add(actionNames[(int)ActionType.NAVIGATE], Navigate);
         actions.Add(actionNames[(int)ActionType.POINT], Point);
         actions.Add(actionNames[(int)ActionType.RIGHT_CLICK], RightClick);
