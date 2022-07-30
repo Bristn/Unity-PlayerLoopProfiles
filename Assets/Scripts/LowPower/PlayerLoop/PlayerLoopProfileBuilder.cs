@@ -81,7 +81,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
 #region Timeout
         private Action timeoutAction = null;
-        private int timeoutLength = 1;
+        private float timeoutLength = 1;
 
         public PlayerLoopProfileBuilder TimeoutCallback(Action pAction)
         {
@@ -89,7 +89,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             return this;
         }
 
-        public PlayerLoopProfileBuilder TimeoutLength(int pLength)
+        public PlayerLoopProfileBuilder TimeoutLength(float pLength)
         {
             timeoutLength = pLength;
             return this;
