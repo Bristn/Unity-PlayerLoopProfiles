@@ -20,9 +20,6 @@ namespace Assets.Scripts.LowPower
         private Queue<int> parameters = new Queue<int>();
         private LowPowerTimeout timeout;
 
-        LowPowerDesktop desktop;
-        LowPowerMobile mobile;
-
         public LowPowerDispatcher(LowPowerTimeout pTimeout)
         {
             timeout = pTimeout;
@@ -32,8 +29,6 @@ namespace Assets.Scripts.LowPower
             system.updateDelegate = Update;
             dispatchSystem = system;
 
-            desktop = new LowPowerDesktop(pTimeout);
-            mobile = new LowPowerMobile(pTimeout);
             Instance = this;
         }
 
@@ -58,11 +53,6 @@ namespace Assets.Scripts.LowPower
             }
 
             timeout.UpdateTimeout();
-
-
-
-            desktop.UpdateInput();
-            mobile.UpdateInput();
         }
     }
 }
