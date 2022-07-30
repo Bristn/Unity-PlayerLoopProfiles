@@ -77,7 +77,8 @@ namespace Assets.Scripts
 
             IPlayerLoopProfile normal = new PlayerLoopProfileBuilder()
                .TimeoutCallback(TimeoutActionActive)
-                //.UI(ui)
+               .TimeoutDuration(0.1f) 
+               //.UI(ui)
                .Build();
 
             LowPowerManager.Instance.playerLoopManager.AddProfile(Profile.IDLE, idle);

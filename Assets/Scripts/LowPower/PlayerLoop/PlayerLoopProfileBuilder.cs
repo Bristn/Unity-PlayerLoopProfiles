@@ -11,9 +11,15 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 {
     public class PlayerLoopProfileBuilder 
     {
-#region Filter
         private List<Type> filteredSystems = new List<Type>();
         private FilterType filteredType = IPlayerLoopProfile.FilterType.REMOVE;
+        private List<PlayerLoopSystem> additionalSystems = new List<PlayerLoopSystem>();
+        private Action<InteractionType> interactionAction = null;
+        private List<InteractionType> ignoredInteraction = new List<InteractionType>();
+        private Action timeoutAction = null;
+        private float timeoutLength = 1;
+        private Dictionary<Type, Test> UITest = new Dictionary<Type, Test>();
+        private PlayerLoopSystem baseSystem = new PlayerLoopSystem();
 
         public PlayerLoopProfileBuilder FilterSystems(params Type[] pSystems)
         {
@@ -32,12 +38,6 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             filteredType = pType;
             return this;
         }
-#endregion
-
-
-
-#region Additional
-        private List<PlayerLoopSystem> additionalSystems = new List<PlayerLoopSystem>();
 
         public PlayerLoopProfileBuilder AdditionalSystems(params PlayerLoopSystem[] pSystems)
         {
@@ -50,13 +50,6 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             additionalSystems = pSystems;
             return this;
         }
-#endregion
-
-
-
-#region Interaction
-        private Action<InteractionType> interactionAction = null;
-        private List<InteractionType> ignoredInteraction = new List<InteractionType>();
 
         public PlayerLoopProfileBuilder InteractionCallback(Action<InteractionType> pAction)
         {
@@ -75,52 +68,30 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             ignoredInteraction = pInteraction;
             return this;
         }
-#endregion
-
-
-
-#region Timeout
-        private Action timeoutAction = null;
-        private float timeoutLength = 1;
-
+        
         public PlayerLoopProfileBuilder TimeoutCallback(Action pAction)
         {
             timeoutAction = pAction;
             return this;
         }
 
-        public PlayerLoopProfileBuilder TimeoutLength(float pLength)
+        public PlayerLoopProfileBuilder TimeoutDuration(float pLength)
         {
             timeoutLength = pLength;
             return this;
         }
-#endregion
-
-
-#region UITESST
-        private Dictionary<Type, Test> UITest = new Dictionary<Type, Test>();
-
 
         public PlayerLoopProfileBuilder UI(Dictionary<Type, Test> pSystems)
         {
             UITest = pSystems;
             return this;
         }
-#endregion
-
-
-
-        #region Base
-        private PlayerLoopSystem baseSystem = new PlayerLoopSystem();
 
         public PlayerLoopProfileBuilder BaseSystem(PlayerLoopSystem pBaseSystem)
         {
             baseSystem = pBaseSystem;
             return this;
         }
-#endregion
-
-
 
         public IPlayerLoopProfile Build()
         {
