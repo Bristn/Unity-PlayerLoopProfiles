@@ -21,7 +21,8 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             Action<InteractionType> pInteractionAction,
             List<InteractionType> pIgnoredInteraction,
             Action pTimeoutAction,
-            float pTimeoutDuration)
+            float pTimeoutDuration,
+            Dictionary<Type, Test> pUITest)
         {
             FilteredType = pFilteredType;
             FilteredSystems = pFilteredSystems;
@@ -30,6 +31,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             IgnoredInteraction = pIgnoredInteraction;
             TimeoutAction = pTimeoutAction;
             TimeoutDuration = pTimeoutDuration;
+            UITest = pUITest;
 
             baseSystem = pBaseSystem;
         }
@@ -47,6 +49,8 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         public Action TimeoutAction { get; private set; }
 
         public float TimeoutDuration { get; private set; }
+
+        public Dictionary<Type, Test> UITest  { get; private set; }
 
         public PlayerLoopSystem GetResultingSystem()
         {

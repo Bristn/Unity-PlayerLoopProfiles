@@ -97,8 +97,20 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 #endregion
 
 
+#region UITESST
+        private Dictionary<Type, Test> UITest = new Dictionary<Type, Test>();
 
-#region Base
+
+        public PlayerLoopProfileBuilder UI(Dictionary<Type, Test> pSystems)
+        {
+            UITest = pSystems;
+            return this;
+        }
+#endregion
+
+
+
+        #region Base
         private PlayerLoopSystem baseSystem = new PlayerLoopSystem();
 
         public PlayerLoopProfileBuilder BaseSystem(PlayerLoopSystem pBaseSystem)
@@ -125,7 +137,8 @@ namespace Assets.Scripts.LowPower.PlayerLoop
                 interactionAction, 
                 ignoredInteraction,
                 timeoutAction, 
-                timeoutLength
+                timeoutLength,
+                UITest
             );
         }
     }

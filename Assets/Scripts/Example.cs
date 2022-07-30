@@ -5,11 +5,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.PlayerLoop;
 using static Assets.Scripts.LowPower.LowPowerImplementation;
 using static Assets.Scripts.LowPower.PlayerLoop.IPlayerLoopProfile;
+using static UnityEngine.PlayerLoop.FixedUpdate;
 using static UnityEngine.PlayerLoop.Initialization;
 using static UnityEngine.PlayerLoop.PostLateUpdate;
+using static UnityEngine.PlayerLoop.PreUpdate;
 
 namespace Assets.Scripts
 {
@@ -46,8 +52,21 @@ namespace Assets.Scripts
                 typeof(ProfilerStartFrame),
                 typeof(ProfilerSynchronizeStats),
                 typeof(ProfilerEndFrame),
+
+                // input Test
+                typeof(SynchronizeInputs),
+                typeof(EarlyUpdate.UpdateInputManager),
+                typeof(EarlyUpdate.ProcessRemoteInput),
+                typeof(NewInputFixedUpdate),
+                typeof(CheckTexFieldInput),
+                typeof(NewInputUpdate),
+                typeof(InputEndFrame),
+                typeof(ResetInputAxis),
             });
 
+           
+            Dictionary<Type, Test> ui = new Dictionary<Type, Test>();
+            ui.Add(typeof(TMP_InputField), aa);
 
             IPlayerLoopProfile idle = new PlayerLoopProfileBuilder()
                 .FilterSystems(idleFilter)
@@ -58,12 +77,21 @@ namespace Assets.Scripts
 
             IPlayerLoopProfile normal = new PlayerLoopProfileBuilder()
                .TimeoutCallback(TimeoutActionActive)
+                //.UI(ui)
                .Build();
 
             LowPowerManager.Instance.playerLoopManager.AddProfile(Profile.IDLE, idle);
             LowPowerManager.Instance.playerLoopManager.AddProfile(Profile.NORMAL, normal);
 
-            LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.NORMAL);
+            LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.IDLE);
+        }
+
+        private bool aa(Component pComp)
+        {
+            Debug.Log("Custom");
+            TMP_InputField tmpInputField = (TMP_InputField)pComp;
+                return tmpInputField.isFocused;
+
         }
 
         private void InteractionActionIdle(InteractionType pType)

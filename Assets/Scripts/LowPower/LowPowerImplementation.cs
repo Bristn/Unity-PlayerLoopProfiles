@@ -13,8 +13,8 @@ namespace Assets.Scripts.LowPower
             DSEKTOP_MOUSE_SCROLL,
             DSEKTOP_KEYBOARD_BUTTON,
 
-            // Android
-            ANDROID_TOUCH,
+            // Mobile
+            MOBILE_TOUCH,
         }
 
 

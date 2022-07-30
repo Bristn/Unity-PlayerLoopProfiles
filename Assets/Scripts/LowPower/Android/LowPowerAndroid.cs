@@ -47,7 +47,7 @@ namespace Assets.Scripts.LowPower.Android
             {
                 if (activeTouchCount == 0)
                 {
-                    AddInteraction(InteractionType.ANDROID_TOUCH);
+                    AddInteraction(InteractionType.MOBILE_TOUCH);
                 }
                 activeTouchCount++;
             }
@@ -56,7 +56,7 @@ namespace Assets.Scripts.LowPower.Android
                 activeTouchCount--;
                 if (activeTouchCount == 0)
                 {
-                    RemoveInteraction(InteractionType.ANDROID_TOUCH);
+                    RemoveInteraction(InteractionType.MOBILE_TOUCH);
                 }
             }
         }

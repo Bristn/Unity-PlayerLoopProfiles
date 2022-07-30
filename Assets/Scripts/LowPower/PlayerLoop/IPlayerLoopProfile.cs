@@ -25,6 +25,8 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
         public List<InteractionType> IgnoredInteraction { get; }
 
+        public Dictionary<Type, Test> UITest { get; }
+
         public Action TimeoutAction { get; }
 
         public float TimeoutDuration { get; }
@@ -32,5 +34,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         public PlayerLoopSystem GetResultingSystem();
 
         public void PrintProfile();
+
+        public delegate bool Test(Component pObject);
     }
 }

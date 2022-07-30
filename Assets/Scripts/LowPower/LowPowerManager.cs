@@ -53,6 +53,9 @@ namespace Assets.Scripts.LowPower
             playerLoopManager = new PlayerLoopManager(dispatcher, timeout);
 
 
+            return;
+
+
             // Add all implementations
             if (Application.isPlaying)
             {

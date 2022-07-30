@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.LowLevel;
 
 namespace Assets.Scripts.LowPower
@@ -11,11 +12,20 @@ namespace Assets.Scripts.LowPower
     /// </summary>
     public class LowPowerDispatcher
     {
+        public static LowPowerDispatcher Instance;
+
         public static PlayerLoopSystem dispatchSystem { get; private set; }
 
         private Queue<Action<int>> events = new Queue<Action<int>>();
         private Queue<int> parameters = new Queue<int>();
+
+        private Queue<Action<MouseState>> stateEvents = new Queue<Action<MouseState>>();
+        private Queue<MouseState> stateParameters = new Queue<MouseState>();
+
         private LowPowerTimeout timeout;
+
+        LowPowerDesktop desktop;
+        LowPowerMobile mobile;
 
         public LowPowerDispatcher(LowPowerTimeout pTimeout)
         {
@@ -25,6 +35,10 @@ namespace Assets.Scripts.LowPower
             system.type = typeof(LowPowerDispatcher);
             system.updateDelegate = Update;
             dispatchSystem = system;
+
+            desktop = new LowPowerDesktop(pTimeout);
+            mobile = new LowPowerMobile(pTimeout);
+            Instance = this;
         }
 
 
@@ -34,6 +48,15 @@ namespace Assets.Scripts.LowPower
             {
                 events.Enqueue(pEvent);
                 parameters.Enqueue(pValue);
+            }
+        }
+
+        public void DispatchEvent(Action<MouseState> pEvent, MouseState pValue)
+        {
+            lock (stateEvents)
+            {
+                stateEvents.Enqueue(pEvent);
+                stateParameters.Enqueue(pValue);
             }
         }
 
@@ -47,7 +70,21 @@ namespace Assets.Scripts.LowPower
                 }
             }
 
+            lock (stateEvents)
+            {
+                while (stateEvents.Count > 0)
+                {
+                    stateEvents.Dequeue().Invoke(stateParameters.Dequeue());
+                }
+            }
+
+
             timeout.UpdateTimeout();
+
+
+
+            desktop.UpdateInput();
+            mobile.UpdateInput();
         }
     }
 }
