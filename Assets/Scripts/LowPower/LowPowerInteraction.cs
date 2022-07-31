@@ -1,4 +1,5 @@
 using Assets.Scripts.LowPower;
+using Assets.Scripts.LowPower.PlayerLoop;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.InputSystem;
 using static Assets.Scripts.Example;
 using static UnityEngine.InputSystem.InputAction;
 
-public class TestInput : MonoBehaviour
+public class LowPowerInteraction : MonoBehaviour
 {
     [SerializeField] private PlayerInput input;
 
@@ -40,7 +41,6 @@ public class TestInput : MonoBehaviour
     }.ToList();
 
     private Dictionary<string, UnityAction<CallbackContext>> actions = new Dictionary<string, UnityAction<CallbackContext>>();
-
 
     private void Start()
     {
@@ -77,6 +77,8 @@ public class TestInput : MonoBehaviour
         }
     }
 
+    public IPlayerLoopProfile Profile { get; set; }
+
     public void Navigate(CallbackContext pContext) => Interaction(pContext, ActionType.NAVIGATE);
 
     public void Point(CallbackContext pContext) => Interaction(pContext, ActionType.POINT);
@@ -99,7 +101,11 @@ public class TestInput : MonoBehaviour
 
     private void Interaction(CallbackContext pContext, ActionType pType)
     {
-        Debug.Log(pType);
-        LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.NORMAL);
+        Debug.Log(pType + " Phase: " + pContext.phase);
+        return;
+        if (Profile != null && !Profile.IgnoredInteraction.Contains(pType))
+        {
+            LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Assets.Scripts.Example.Profile.NORMAL);
+        }
     }
 }
