@@ -46,7 +46,7 @@ namespace Assets.Scripts.LowPower
 
         public void UpdateTimeout()
         {
-            if (Profile.TimeoutAction == null || timeoutHappened || tempInteraction || SelectedUIElement())
+            if (!LowPowerManager.Instance.playerLoopManager.AllowProfileChange || Profile.TimeoutAction == null || timeoutHappened || tempInteraction || SelectedUIElement())
             {
                 ResetTimer();
                 return;

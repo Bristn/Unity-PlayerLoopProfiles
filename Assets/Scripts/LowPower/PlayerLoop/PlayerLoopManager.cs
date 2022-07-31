@@ -16,6 +16,8 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
         private Thread mainThread;
 
+        public bool AllowProfileChange { get; set; } = true;
+
         public PlayerLoopManager(LowPowerDispatcher pDispatcher, LowPowerTimeout pTimeout)
         {
             dispatcher = pDispatcher;
@@ -41,6 +43,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
         public void SetActiveProfile(int pKey)
         {
+            Debug.Log("Is main thread: " + (Thread.CurrentThread == mainThread));
             if (Thread.CurrentThread == mainThread)
             {
                 SetActiveProfileDispatched(pKey);

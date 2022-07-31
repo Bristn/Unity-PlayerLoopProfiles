@@ -31,9 +31,6 @@ namespace Assets.Scripts.LowPower
 
         public LowPowerManager()
         {
-            GameObject gameObject = new GameObject("LowPower");
-
-            // Create sub systems
             timeout = new LowPowerTimeout();
             dispatcher = new LowPowerDispatcher(timeout);
 
