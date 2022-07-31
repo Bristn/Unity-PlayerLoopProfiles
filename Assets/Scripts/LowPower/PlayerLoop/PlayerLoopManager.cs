@@ -14,8 +14,6 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         private LowPowerDispatcher dispatcher;
         private LowPowerTimeout timeout;
 
-        private Thread mainThread;
-
         public bool AllowProfileChange { get; set; } = true;
 
         public PlayerLoopManager(LowPowerDispatcher pDispatcher, LowPowerTimeout pTimeout)
@@ -23,8 +21,6 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             dispatcher = pDispatcher;
             timeout = pTimeout;
             LowPowerInteraction.Instance.Timeout = timeout;
-
-            mainThread = Thread.CurrentThread;
         }
 
         public bool AddProfile(System.Enum pKey, IPlayerLoopProfile pProfile) => profiles.TryAdd(pKey.ToInt(), pProfile);
@@ -42,19 +38,6 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         public void SetActiveProfile(System.Enum pKey) => SetActiveProfile(pKey.ToInt());
 
         public void SetActiveProfile(int pKey)
-        {
-            Debug.Log("Is main thread: " + (Thread.CurrentThread == mainThread));
-            if (Thread.CurrentThread == mainThread)
-            {
-                SetActiveProfileDispatched(pKey);
-            }
-            else
-            {
-                dispatcher.DispatchEvent(SetActiveProfileDispatched, pKey);
-            }
-        }
-
-        private void SetActiveProfileDispatched(int pKey)
         {
             if (activeProfile == pKey)
             {
