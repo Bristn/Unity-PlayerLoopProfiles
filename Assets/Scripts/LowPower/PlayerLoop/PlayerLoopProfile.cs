@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.LowLevel;
 using static Assets.Scripts.LowPower.LowPowerImplementation;
 using static Assets.Scripts.LowPower.PlayerLoop.IPlayerLoopProfile;
+using static LowPowerInteraction;
 
 namespace Assets.Scripts.LowPower.PlayerLoop
 {
@@ -18,8 +19,8 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             FilterType pFilteredType, 
             List<PlayerLoopSystem> pAdditionalSystems, 
             PlayerLoopSystem pBaseSystem,
-            Action<InteractionType> pInteractionAction,
-            List<InteractionType> pIgnoredInteraction,
+            Action<ActionType> pInteractionAction,
+            List<ActionType> pIgnoredInteraction,
             Action pTimeoutAction,
             float pTimeoutDuration,
             Dictionary<Type, Test> pUITest)
@@ -42,9 +43,9 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
         public List<PlayerLoopSystem> AdditionalSystems { get; private set; }
 
-        public Action<InteractionType> InteractionAction { get; private set; }
+        public Action<ActionType> InteractionAction { get; private set; }
 
-        public List<InteractionType> IgnoredInteraction { get; private set; }
+        public List<ActionType> IgnoredInteraction { get; private set; }
 
         public Action TimeoutAction { get; private set; }
 

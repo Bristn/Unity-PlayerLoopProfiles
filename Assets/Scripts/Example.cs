@@ -1,17 +1,12 @@
 ﻿using Assets.Scripts.LowPower;
 using Assets.Scripts.LowPower.PlayerLoop;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.PlayerLoop;
-using static Assets.Scripts.LowPower.LowPowerImplementation;
 using static Assets.Scripts.LowPower.PlayerLoop.IPlayerLoopProfile;
+using static LowPowerInteraction;
 using static UnityEngine.PlayerLoop.FixedUpdate;
 using static UnityEngine.PlayerLoop.Initialization;
 using static UnityEngine.PlayerLoop.PostLateUpdate;
@@ -65,26 +60,24 @@ namespace Assets.Scripts
             });
 
            
-            Dictionary<Type, Test> ui = new Dictionary<Type, Test>();
-            ui.Add(typeof(TMP_InputField), aa);
 
             IPlayerLoopProfile idle = new PlayerLoopProfileBuilder()
                 .FilterSystems(idleFilter)
                 .FilterType(FilterType.KEEP)
                 .InteractionCallback(InteractionActionIdle)
-                .IgnoreInteraction(InteractionType.DSEKTOP_MOUSE_MOVE)
+                .IgnoreInteraction(ActionType.POINT)
                 .Build();
 
             IPlayerLoopProfile normal = new PlayerLoopProfileBuilder()
                .TimeoutCallback(TimeoutActionActive)
                .TimeoutDuration(0.1f) 
-               //.UI(ui)
+               .UI(typeof(TMP_InputField), aa)
                .Build();
 
             LowPowerManager.Instance.playerLoopManager.AddProfile(Profile.IDLE, idle);
             LowPowerManager.Instance.playerLoopManager.AddProfile(Profile.NORMAL, normal);
 
-            LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.IDLE);
+            //LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.IDLE);
         }
 
         private bool aa(Component pComp)
@@ -95,10 +88,10 @@ namespace Assets.Scripts
 
         }
 
-        private void InteractionActionIdle(InteractionType pType)
+        private void InteractionActionIdle(ActionType pType)
         {
             Debug.Log("Interaction: " + pType);
-            if (pType == InteractionType.DSEKTOP_MOUSE_SCROLL)
+            if (pType == ActionType.SCROLL_WHEEL)
             {
                 return;
             }

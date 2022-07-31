@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.LowLevel;
 using static Assets.Scripts.LowPower.LowPowerImplementation;
 using static Assets.Scripts.LowPower.PlayerLoop.IPlayerLoopProfile;
+using static LowPowerInteraction;
 
 namespace Assets.Scripts.LowPower.PlayerLoop
 {
@@ -14,8 +15,8 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         private List<Type> filteredSystems = new List<Type>();
         private FilterType filteredType = IPlayerLoopProfile.FilterType.REMOVE;
         private List<PlayerLoopSystem> additionalSystems = new List<PlayerLoopSystem>();
-        private Action<InteractionType> interactionAction = null;
-        private List<InteractionType> ignoredInteraction = new List<InteractionType>();
+        private Action<ActionType> interactionAction = null;
+        private List<ActionType> ignoredInteraction = new List<ActionType>();
         private Action timeoutAction = null;
         private float timeoutLength = 1;
         private Dictionary<Type, Test> UITest = new Dictionary<Type, Test>();
@@ -51,19 +52,19 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             return this;
         }
 
-        public PlayerLoopProfileBuilder InteractionCallback(Action<InteractionType> pAction)
+        public PlayerLoopProfileBuilder InteractionCallback(Action<ActionType> pAction)
         {
             interactionAction = pAction;
             return this;
         }
 
-        public PlayerLoopProfileBuilder IgnoreInteraction(params InteractionType[] pInteraction)
+        public PlayerLoopProfileBuilder IgnoreInteraction(params ActionType[] pInteraction)
         {
             ignoredInteraction = pInteraction.ToList();
             return this;
         }
 
-        public PlayerLoopProfileBuilder IgnoreInteraction(List<InteractionType> pInteraction)
+        public PlayerLoopProfileBuilder IgnoreInteraction(List<ActionType> pInteraction)
         {
             ignoredInteraction = pInteraction;
             return this;
@@ -81,9 +82,9 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             return this;
         }
 
-        public PlayerLoopProfileBuilder UI(Dictionary<Type, Test> pSystems)
+        public PlayerLoopProfileBuilder UI(Type pType, Test pSystems)
         {
-            UITest = pSystems;
+            UITest.TryAdd(pType, pSystems);
             return this;
         }
 

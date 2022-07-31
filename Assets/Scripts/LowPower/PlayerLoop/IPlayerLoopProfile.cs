@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.LowLevel;
 using static Assets.Scripts.LowPower.LowPowerImplementation;
+using static LowPowerInteraction;
 
 namespace Assets.Scripts.LowPower.PlayerLoop
 {
@@ -21,9 +22,9 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
         public List<PlayerLoopSystem> AdditionalSystems { get; }
 
-        public Action<InteractionType> InteractionAction { get; }
+        public Action<ActionType> InteractionAction { get; }
 
-        public List<InteractionType> IgnoredInteraction { get; }
+        public List<ActionType> IgnoredInteraction { get; }
 
         public Dictionary<Type, Test> UITest { get; }
 

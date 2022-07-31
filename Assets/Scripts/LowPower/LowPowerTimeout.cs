@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static Assets.Scripts.LowPower.LowPowerImplementation;
+using static LowPowerInteraction;
 
 namespace Assets.Scripts.LowPower
 {
@@ -29,7 +30,7 @@ namespace Assets.Scripts.LowPower
             }
         }
 
-        public void AddInteraction(InteractionType pInteraction)
+        public void AddInteraction(ActionType pInteraction)
         {
             // If the interaction is ignored simply return
             if (Profile.IgnoredInteraction.Contains(pInteraction))
@@ -39,7 +40,7 @@ namespace Assets.Scripts.LowPower
 
             // Check if this is a temporary interaction (Temporary = Only one state: Scrolled, Moved)
             int prevCount = interactionCount;
-            if (pInteraction.IsTemporary())
+            if (/* pInteraction.IsTemporary() */ true)
             {
                 if (prevCount == 0)
                 {
