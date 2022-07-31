@@ -15,7 +15,6 @@ namespace Assets.Scripts.LowPower
         private float timePassed;
         private bool timeoutHappened;
         private bool tempInteraction;
-        private int interactionCount;
         private IPlayerLoopProfile profile;
 
         public IPlayerLoopProfile Profile 
@@ -38,32 +37,16 @@ namespace Assets.Scripts.LowPower
             }
 
             // Check if this is a temporary interaction (Temporary = Only one state: Scrolled, Moved)
-            int prevCount = interactionCount;
-            if (prevCount == 0)
+            tempInteraction = true;
+            if (Profile.InteractionAction != null)
             {
-                tempInteraction = true;
-                if (Profile.InteractionAction != null)
-                {
-                    Profile.InteractionAction.Invoke(pInteraction);
-                }
+                Profile.InteractionAction.Invoke(pInteraction);
             }
         }
 
         public void UpdateTimeout()
         {
-            if (Profile.TimeoutAction == null || timeoutHappened)
-            {
-                ResetTimer();
-                return;
-            }
-
-            if (interactionCount > 0 || tempInteraction)
-            {
-                ResetTimer();
-                return;
-            }
-
-            if (SelectedUIElement())
+            if (Profile.TimeoutAction == null || timeoutHappened || tempInteraction || SelectedUIElement())
             {
                 ResetTimer();
                 return;

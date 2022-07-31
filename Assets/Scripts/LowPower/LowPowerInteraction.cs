@@ -79,8 +79,6 @@ public class LowPowerInteraction : MonoBehaviour
         }
     }
 
-    public IPlayerLoopProfile Profile { get; set; }
-
     public LowPowerTimeout Timeout { get; set; }
 
     public void Navigate(CallbackContext pContext) => Interaction(pContext, ActionType.NAVIGATE);
@@ -106,12 +104,5 @@ public class LowPowerInteraction : MonoBehaviour
     private void Interaction(CallbackContext pContext, ActionType pType)
     {
         Timeout.AddInteraction(pType);
-        /*
-        // Debug.Log(pType + " Phase: " + pContext.phase + " " + pContext.started);
-        if (Profile != null && !Profile.IgnoredInteraction.Contains(pType))
-        {
-            LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Assets.Scripts.Example.Profile.NORMAL);
-        }
-        */
     }
 }

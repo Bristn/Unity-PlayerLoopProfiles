@@ -20,6 +20,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         {
             dispatcher = pDispatcher;
             timeout = pTimeout;
+            LowPowerInteraction.Instance.Timeout = timeout;
 
             mainThread = Thread.CurrentThread;
         }
@@ -65,7 +66,6 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             }
 
             timeout.Profile = profile;
-            LowPowerInteraction.Instance.Profile = profile;
             UnityEngine.LowLevel.PlayerLoop.SetPlayerLoop(profile.GetResultingSystem());
         }
     }
