@@ -5,12 +5,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using static Assets.Scripts.Example;
 using static UnityEngine.InputSystem.InputAction;
 
 public class LowPowerInteraction : MonoBehaviour
 {
     [SerializeField] private PlayerInput input;
+
+    public static LowPowerInteraction Instance;
 
     public enum ActionType
     {
@@ -44,6 +45,7 @@ public class LowPowerInteraction : MonoBehaviour
 
     private void Start()
     {
+        Instance = this;
         actions.Add(actionNames[(int)ActionType.NAVIGATE], Navigate);
         actions.Add(actionNames[(int)ActionType.POINT], Point);
         actions.Add(actionNames[(int)ActionType.RIGHT_CLICK], RightClick);
@@ -79,6 +81,8 @@ public class LowPowerInteraction : MonoBehaviour
 
     public IPlayerLoopProfile Profile { get; set; }
 
+    public LowPowerTimeout Timeout { get; set; }
+
     public void Navigate(CallbackContext pContext) => Interaction(pContext, ActionType.NAVIGATE);
 
     public void Point(CallbackContext pContext) => Interaction(pContext, ActionType.POINT);
@@ -101,11 +105,13 @@ public class LowPowerInteraction : MonoBehaviour
 
     private void Interaction(CallbackContext pContext, ActionType pType)
     {
-        Debug.Log(pType + " Phase: " + pContext.phase);
-        return;
+        Timeout.AddInteraction(pType);
+        /*
+        // Debug.Log(pType + " Phase: " + pContext.phase + " " + pContext.started);
         if (Profile != null && !Profile.IgnoredInteraction.Contains(pType))
         {
             LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Assets.Scripts.Example.Profile.NORMAL);
         }
+        */
     }
 }

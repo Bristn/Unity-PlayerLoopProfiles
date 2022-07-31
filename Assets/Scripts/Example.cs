@@ -77,15 +77,13 @@ namespace Assets.Scripts
             LowPowerManager.Instance.playerLoopManager.AddProfile(Profile.IDLE, idle);
             LowPowerManager.Instance.playerLoopManager.AddProfile(Profile.NORMAL, normal);
 
-            //LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.IDLE);
+            LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.IDLE);
         }
 
         private bool aa(Component pComp)
         {
-            Debug.Log("Custom");
             TMP_InputField tmpInputField = (TMP_InputField)pComp;
-                return tmpInputField.isFocused;
-
+            return tmpInputField.isFocused;
         }
 
         private void InteractionActionIdle(ActionType pType)

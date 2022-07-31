@@ -288,7 +288,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 893310770}
-  _inputMap: {fileID: -944628639613478452, guid: 44e882e4867397a4ea5adaa9f9550ac6, type: 3}
 --- !u!4 &428517467
 Transform:
   m_ObjectHideFlags: 0

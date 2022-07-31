@@ -22,11 +22,6 @@ namespace Assets.Scripts.LowPower
         }
 
 
-        private List<LowPowerImplementation> implementations = new List<LowPowerImplementation>();
-
-        public LowPowerMono mono { get; private set; }
-
-
         public LowPowerTimeout timeout { get; private set; }
 
         public LowPowerDispatcher dispatcher { get; private set; }
@@ -43,20 +38,6 @@ namespace Assets.Scripts.LowPower
             dispatcher = new LowPowerDispatcher(timeout);
 
             playerLoopManager = new PlayerLoopManager(dispatcher, timeout);
-
-
-            return;
-
-
-            // Add all implementations
-            if (Application.isPlaying)
-            {
-
-            }
-
-            // Add new component which reacts to pause, focus etc. events
-            gameObject.AddComponent<LowPowerMono>();
-            gameObject.GetComponent<LowPowerMono>().Implementations = implementations;
         }
     }
 }

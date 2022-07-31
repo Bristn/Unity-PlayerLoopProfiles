@@ -6,7 +6,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static Assets.Scripts.LowPower.LowPowerImplementation;
 using static LowPowerInteraction;
 
 namespace Assets.Scripts.LowPower
@@ -40,32 +39,15 @@ namespace Assets.Scripts.LowPower
 
             // Check if this is a temporary interaction (Temporary = Only one state: Scrolled, Moved)
             int prevCount = interactionCount;
-            if (/* pInteraction.IsTemporary() */ true)
+            if (prevCount == 0)
             {
-                if (prevCount == 0)
-                {
-                    tempInteraction = true;
-                    if (Profile.InteractionAction != null)
-                    {
-                        Profile.InteractionAction.Invoke(pInteraction);
-                    }
-                }
-                return;
-            }
-
-            // Check if this is the first interaction -> Invoke callback if so
-            interactionCount++;
-            int curCount = interactionCount;
-            if (prevCount == 0 && curCount > 0)
-            {
+                tempInteraction = true;
                 if (Profile.InteractionAction != null)
                 {
                     Profile.InteractionAction.Invoke(pInteraction);
                 }
             }
         }
-
-        public void RemoveInteraction(InteractionType pInteraction) => interactionCount--;
 
         public void UpdateTimeout()
         {
@@ -96,7 +78,7 @@ namespace Assets.Scripts.LowPower
             timePassed += Time.deltaTime;
         }
 
-        private bool SelectedUIElement() // TODO Modularize
+        private bool SelectedUIElement()
         {
             GameObject selected = EventSystem.current.currentSelectedGameObject;
             if (selected == null)
@@ -104,27 +86,17 @@ namespace Assets.Scripts.LowPower
                 return false;
             }
 
-            Debug.Log("SelectedUIElement() " + Profile.UITest.Count);
             foreach (var element in Profile.UITest)
             {
-                Debug.Log(" TryGetComponent(" + element.Key + ")");
                 if (selected.TryGetComponent(element.Key, out Component component))
                 {
                     if (element.Value.Invoke(component))
                     {
-                        Debug.Log("Return true");
                         return true;
                     }
                 }
             }
-           
-            /*
-            TMP_InputField tmpInputField = selected.GetComponent<TMP_InputField>();
-            if (tmpInputField != null)
-            {
-                return tmpInputField.isFocused;
-            }
-            */
+      
             return false;
         }
 

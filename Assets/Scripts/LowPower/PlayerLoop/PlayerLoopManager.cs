@@ -65,6 +65,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             }
 
             timeout.Profile = profile;
+            LowPowerInteraction.Instance.Profile = profile;
             UnityEngine.LowLevel.PlayerLoop.SetPlayerLoop(profile.GetResultingSystem());
         }
     }

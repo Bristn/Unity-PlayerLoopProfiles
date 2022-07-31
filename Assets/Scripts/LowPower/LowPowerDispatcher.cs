@@ -44,6 +44,11 @@ namespace Assets.Scripts.LowPower
 
         public void Update()
         {
+            if (!Application.isPlaying)
+            {
+                return; // TODO
+            }
+
             lock (events)
             {
                 while (events.Count > 0)
