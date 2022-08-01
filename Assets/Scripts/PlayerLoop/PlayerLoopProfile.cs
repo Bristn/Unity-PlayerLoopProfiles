@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.LowLevel;
-using static LowPowerInteraction;
+using static Assets.Scripts.PlayerLoop.LowPowerInteraction;
 
-namespace Assets.Scripts.LowPower.PlayerLoop
+namespace Assets.Scripts.PlayerLoop
 {
     public class PlayerLoopProfile
     {

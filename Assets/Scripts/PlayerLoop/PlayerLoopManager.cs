@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using UnityEngine;
 
-namespace Assets.Scripts.LowPower.PlayerLoop
+namespace Assets.Scripts.PlayerLoop
 {
     public static class PlayerLoopManager
     {

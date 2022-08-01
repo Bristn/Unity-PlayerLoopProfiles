@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.LowLevel;
-using static Assets.Scripts.LowPower.PlayerLoop.PlayerLoopProfile;
-using static LowPowerInteraction;
+using static Assets.Scripts.PlayerLoop.LowPowerInteraction;
+using static Assets.Scripts.PlayerLoop.PlayerLoopProfile;
 
-namespace Assets.Scripts.LowPower.PlayerLoop
+namespace Assets.Scripts.PlayerLoop
 {
     public class PlayerLoopProfileBuilder 
     {

@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.LowPower.PlayerLoop;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,9 +6,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.LowLevel;
 using UnityEngine.UI;
-using static LowPowerInteraction;
+using static Assets.Scripts.PlayerLoop.LowPowerInteraction;
 
-namespace Assets.Scripts.LowPower
+namespace Assets.Scripts.PlayerLoop
 {
     public static class LowPowerTimeout 
     {

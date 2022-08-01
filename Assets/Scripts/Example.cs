@@ -1,12 +1,11 @@
-﻿using Assets.Scripts.LowPower;
-using Assets.Scripts.LowPower.PlayerLoop;
+﻿using Assets.Scripts.PlayerLoop;
 using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-using static Assets.Scripts.LowPower.PlayerLoop.PlayerLoopProfile;
-using static LowPowerInteraction;
+using static Assets.Scripts.PlayerLoop.LowPowerInteraction;
+using static Assets.Scripts.PlayerLoop.PlayerLoopProfile;
 using static UnityEngine.PlayerLoop.FixedUpdate;
 using static UnityEngine.PlayerLoop.Initialization;
 using static UnityEngine.PlayerLoop.PostLateUpdate;
