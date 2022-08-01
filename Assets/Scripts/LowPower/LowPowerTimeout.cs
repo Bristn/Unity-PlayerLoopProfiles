@@ -10,14 +10,14 @@ using static LowPowerInteraction;
 
 namespace Assets.Scripts.LowPower
 {
-    public class LowPowerTimeout 
+    public static class LowPowerTimeout 
     {
-        private float timePassed;
-        private bool timeoutHappened;
-        private bool tempInteraction;
-        private PlayerLoopProfile profile;
+        private static float timePassed;
+        private static bool timeoutHappened;
+        private static bool tempInteraction;
+        private static PlayerLoopProfile profile;
 
-        public PlayerLoopProfile Profile 
+        public static PlayerLoopProfile Profile 
         {
             private get => profile;
             set
@@ -28,7 +28,7 @@ namespace Assets.Scripts.LowPower
             }
         }
 
-        public void AddInteraction(ActionType pInteraction)
+        public static void AddInteraction(ActionType pInteraction)
         {
             // If the interaction is ignored simply return
             if (Profile.IgnoredInteraction.Contains(pInteraction))
@@ -44,7 +44,7 @@ namespace Assets.Scripts.LowPower
             }
         }
 
-        public void UpdateTimeout()
+        public static void UpdateTimeout()
         {
             if (LowPowerManager.Instance.playerLoopManager.PreventProfileChange > 0 || Profile.TimeoutAction == null || timeoutHappened || tempInteraction || SelectedUIElement())
             {
@@ -61,7 +61,7 @@ namespace Assets.Scripts.LowPower
             timePassed += Time.deltaTime;
         }
 
-        private bool SelectedUIElement()
+        private static bool SelectedUIElement()
         {
             GameObject selected = EventSystem.current.currentSelectedGameObject;
             if (selected == null)
@@ -84,7 +84,7 @@ namespace Assets.Scripts.LowPower
         }
 
 
-        private void ResetTimer()
+        private static void ResetTimer()
         {
             timePassed = 0;
             tempInteraction = false;

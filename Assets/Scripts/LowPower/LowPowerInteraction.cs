@@ -79,8 +79,6 @@ public class LowPowerInteraction : MonoBehaviour
         }
     }
 
-    public LowPowerTimeout Timeout { get; set; }
-
     public void Navigate(CallbackContext pContext) => Interaction(pContext, ActionType.NAVIGATE);
 
     public void Point(CallbackContext pContext) => Interaction(pContext, ActionType.POINT);
@@ -103,6 +101,6 @@ public class LowPowerInteraction : MonoBehaviour
 
     private void Interaction(CallbackContext pContext, ActionType pType)
     {
-        Timeout.AddInteraction(pType);
+        LowPowerTimeout.AddInteraction(pType);
     }
 }

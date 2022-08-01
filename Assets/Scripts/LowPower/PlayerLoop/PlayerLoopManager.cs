@@ -11,15 +11,8 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         private Dictionary<int, PlayerLoopProfile> profiles = new Dictionary<int, PlayerLoopProfile>();
         private int activeProfile = -1;
 
-        private LowPowerTimeout timeout;
 
         public int PreventProfileChange { get; set; } = 0;
-
-        public PlayerLoopManager(LowPowerTimeout pTimeout)
-        {
-            timeout = pTimeout;
-            LowPowerInteraction.Instance.Timeout = timeout;
-        }
 
         public bool AddProfile(System.Enum pKey, PlayerLoopProfile pProfile) => profiles.TryAdd(pKey.ToInt(), pProfile);
 
@@ -49,7 +42,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
                 return;
             }
 
-            timeout.Profile = profile;
+            LowPowerTimeout.Profile = profile;
             UnityEngine.LowLevel.PlayerLoop.SetPlayerLoop(profile.GetResultingSystem());
         }
     }

@@ -22,7 +22,6 @@ namespace Assets.Scripts.LowPower
         }
 
 
-        public LowPowerTimeout timeout { get; private set; }
 
         public LowPowerDispatcher dispatcher { get; private set; }
 
@@ -31,10 +30,9 @@ namespace Assets.Scripts.LowPower
 
         public LowPowerManager()
         {
-            timeout = new LowPowerTimeout();
-            dispatcher = new LowPowerDispatcher(timeout);
+            dispatcher = new LowPowerDispatcher();
 
-            playerLoopManager = new PlayerLoopManager(timeout);
+            playerLoopManager = new PlayerLoopManager();
         }
     }
 }

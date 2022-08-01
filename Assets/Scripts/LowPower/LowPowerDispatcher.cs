@@ -18,12 +18,9 @@ namespace Assets.Scripts.LowPower
 
         private Queue<Action<int>> events = new Queue<Action<int>>();
         private Queue<int> parameters = new Queue<int>();
-        private LowPowerTimeout timeout;
 
-        public LowPowerDispatcher(LowPowerTimeout pTimeout)
+        public LowPowerDispatcher()
         {
-            timeout = pTimeout;
-
             PlayerLoopSystem system = new PlayerLoopSystem();
             system.type = typeof(LowPowerDispatcher);
             system.updateDelegate = Update;
@@ -57,7 +54,7 @@ namespace Assets.Scripts.LowPower
                 }
             }
 
-            timeout.UpdateTimeout();
+            LowPowerTimeout.UpdateTimeout();
         }
     }
 }
