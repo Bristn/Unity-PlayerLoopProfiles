@@ -14,7 +14,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         private LowPowerDispatcher dispatcher;
         private LowPowerTimeout timeout;
 
-        public bool AllowProfileChange { get; set; } = true;
+        public int PreventProfileChange { get; set; } = 0;
 
         public PlayerLoopManager(LowPowerDispatcher pDispatcher, LowPowerTimeout pTimeout)
         {

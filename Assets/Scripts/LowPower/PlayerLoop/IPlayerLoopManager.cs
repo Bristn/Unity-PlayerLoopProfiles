@@ -21,6 +21,6 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
         public void SetActiveProfile(int pKey);
 
-        public bool AllowProfileChange { get; set; }
+        public int PreventProfileChange { get; set; }
     }
 }
