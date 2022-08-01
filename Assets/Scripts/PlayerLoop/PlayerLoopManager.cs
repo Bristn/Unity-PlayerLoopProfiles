@@ -42,7 +42,7 @@ namespace Assets.Scripts.PlayerLoop
                 return;
             }
 
-            LowPowerTimeout.Profile = profile;
+            PlayerLoopTimeout.Profile = profile;
             UnityEngine.LowLevel.PlayerLoop.SetPlayerLoop(profile.GetResultingSystem());
         }
 

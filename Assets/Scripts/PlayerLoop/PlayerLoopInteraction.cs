@@ -7,7 +7,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 namespace Assets.Scripts.PlayerLoop
 {
-    public class LowPowerInteraction : MonoBehaviour
+    public class PlayerLoopInteraction : MonoBehaviour
     {
         [SerializeField] private PlayerInput input;
 
@@ -98,7 +98,7 @@ namespace Assets.Scripts.PlayerLoop
 
         private void Interaction(CallbackContext pContext, ActionType pType)
         {
-            LowPowerTimeout.AddInteraction(pType);
+            PlayerLoopTimeout.AddInteraction(pType);
         }
     }
 }

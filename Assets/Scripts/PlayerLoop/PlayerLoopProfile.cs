@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.LowLevel;
-using static Assets.Scripts.PlayerLoop.LowPowerInteraction;
+using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 
 namespace Assets.Scripts.PlayerLoop
 {
@@ -73,7 +73,7 @@ namespace Assets.Scripts.PlayerLoop
 
             List<PlayerLoopSystem> subSystems = system.subSystemList.ToList();
             subSystems.AddRange(AdditionalSystems);
-            subSystems.Add(LowPowerTimeout.UpdateSystem);
+            subSystems.Add(PlayerLoopTimeout.UpdateSystem);
             system.subSystemList = subSystems.ToArray();
 
             cachedSystem = system;

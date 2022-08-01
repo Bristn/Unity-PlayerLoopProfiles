@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.LowLevel;
-using static Assets.Scripts.PlayerLoop.LowPowerInteraction;
+using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 using static Assets.Scripts.PlayerLoop.PlayerLoopProfile;
 
 namespace Assets.Scripts.PlayerLoop

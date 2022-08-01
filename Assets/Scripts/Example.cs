@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-using static Assets.Scripts.PlayerLoop.LowPowerInteraction;
+using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 using static Assets.Scripts.PlayerLoop.PlayerLoopProfile;
 using static UnityEngine.PlayerLoop.FixedUpdate;
 using static UnityEngine.PlayerLoop.Initialization;

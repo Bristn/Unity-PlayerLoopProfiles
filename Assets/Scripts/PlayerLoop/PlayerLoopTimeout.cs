@@ -6,11 +6,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.LowLevel;
 using UnityEngine.UI;
-using static Assets.Scripts.PlayerLoop.LowPowerInteraction;
+using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 
 namespace Assets.Scripts.PlayerLoop
 {
-    public static class LowPowerTimeout 
+    public static class PlayerLoopTimeout 
     {
         private static float timePassed;
         private static bool timeoutHappened;
@@ -30,7 +30,7 @@ namespace Assets.Scripts.PlayerLoop
 
         public static PlayerLoopSystem UpdateSystem { get; private set; } = new PlayerLoopSystem()
         {
-            type = typeof(LowPowerTimeout),
+            type = typeof(PlayerLoopTimeout),
             updateDelegate = Update,
         };
 
