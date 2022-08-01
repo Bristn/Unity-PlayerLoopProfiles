@@ -11,14 +11,12 @@ namespace Assets.Scripts.LowPower.PlayerLoop
         private Dictionary<int, IPlayerLoopProfile> profiles = new Dictionary<int, IPlayerLoopProfile>();
         private int activeProfile = -1;
 
-        private LowPowerDispatcher dispatcher;
         private LowPowerTimeout timeout;
 
         public int PreventProfileChange { get; set; } = 0;
 
-        public PlayerLoopManager(LowPowerDispatcher pDispatcher, LowPowerTimeout pTimeout)
+        public PlayerLoopManager(LowPowerTimeout pTimeout)
         {
-            dispatcher = pDispatcher;
             timeout = pTimeout;
             LowPowerInteraction.Instance.Timeout = timeout;
         }

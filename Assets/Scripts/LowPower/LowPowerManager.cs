@@ -34,7 +34,7 @@ namespace Assets.Scripts.LowPower
             timeout = new LowPowerTimeout();
             dispatcher = new LowPowerDispatcher(timeout);
 
-            playerLoopManager = new PlayerLoopManager(dispatcher, timeout);
+            playerLoopManager = new PlayerLoopManager(timeout);
         }
     }
 }
