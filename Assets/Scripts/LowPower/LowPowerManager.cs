@@ -22,16 +22,10 @@ namespace Assets.Scripts.LowPower
         }
 
 
-
-        public LowPowerDispatcher dispatcher { get; private set; }
-
-
         public PlayerLoopManager playerLoopManager { get; private set; }
 
         public LowPowerManager()
         {
-            dispatcher = new LowPowerDispatcher();
-
             playerLoopManager = new PlayerLoopManager();
         }
     }

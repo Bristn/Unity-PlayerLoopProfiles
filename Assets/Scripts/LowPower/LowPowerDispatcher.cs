@@ -10,27 +10,19 @@ namespace Assets.Scripts.LowPower
     /// <summary>
     /// A custom update class which isn't removed from the player loop at any point
     /// </summary>
-    public class LowPowerDispatcher
+    public static class LowPowerDispatcher
     {
-        public static LowPowerDispatcher Instance;
-
-        public static PlayerLoopSystem dispatchSystem { get; private set; }
-
-        private Queue<Action<int>> events = new Queue<Action<int>>();
-        private Queue<int> parameters = new Queue<int>();
-
-        public LowPowerDispatcher()
+        public static PlayerLoopSystem dispatchSystem { get; private set; } = new PlayerLoopSystem()
         {
-            PlayerLoopSystem system = new PlayerLoopSystem();
-            system.type = typeof(LowPowerDispatcher);
-            system.updateDelegate = Update;
-            dispatchSystem = system;
-
-            Instance = this;
-        }
+            type = typeof(LowPowerDispatcher),
+            updateDelegate = Update,
+        };
 
 
-        public void DispatchEvent(Action<int> pEvent, int pValue)
+        private static Queue<Action<int>> events = new Queue<Action<int>>();
+        private static Queue<int> parameters = new Queue<int>();
+
+        public static void DispatchEvent(Action<int> pEvent, int pValue)
         {
             lock (events)
             {
@@ -39,7 +31,7 @@ namespace Assets.Scripts.LowPower
             }
         }
 
-        public void Update()
+        public static void Update()
         {
             if (!Application.isPlaying)
             {
