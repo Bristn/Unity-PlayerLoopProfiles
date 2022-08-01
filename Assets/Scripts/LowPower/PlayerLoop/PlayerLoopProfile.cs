@@ -59,8 +59,15 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
         public Dictionary<Type, Test> UITest  { get; private set; }
 
+        private PlayerLoopSystem cachedSystem;
+
         public PlayerLoopSystem GetResultingSystem()
         {
+            if (cachedSystem.subSystemList != null && cachedSystem.subSystemList.Length != 0)
+            {
+                return cachedSystem;
+            }
+
             Filter filter = FilteredType == FilterType.KEEP ? KeepFilter : RemoveFilter;
             PlayerLoopSystem system = GetResultingSystem(baseSystem, filter);
 
@@ -69,6 +76,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             subSystems.Add(LowPowerTimeout.UpdateSystem);
             system.subSystemList = subSystems.ToArray();
 
+            cachedSystem = system;
             return system;
         }
 
