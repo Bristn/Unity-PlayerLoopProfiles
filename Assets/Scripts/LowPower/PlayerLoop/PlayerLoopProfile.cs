@@ -66,7 +66,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
 
             List<PlayerLoopSystem> subSystems = system.subSystemList.ToList();
             subSystems.AddRange(AdditionalSystems);
-            subSystems.Add(LowPowerDispatcher.dispatchSystem);
+            subSystems.Add(LowPowerTimeout.UpdateSystem);
             system.subSystemList = subSystems.ToArray();
 
             return system;

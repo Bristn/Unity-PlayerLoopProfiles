@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.LowLevel;
 using UnityEngine.UI;
 using static LowPowerInteraction;
 
@@ -28,15 +29,31 @@ namespace Assets.Scripts.LowPower
             }
         }
 
+        public static PlayerLoopSystem UpdateSystem { get; private set; } = new PlayerLoopSystem()
+        {
+            type = typeof(LowPowerTimeout),
+            updateDelegate = Update,
+        };
+
+
+        public static void Update()
+        {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            UpdateTimeout();
+        }
+
+
         public static void AddInteraction(ActionType pInteraction)
         {
-            // If the interaction is ignored simply return
             if (Profile.IgnoredInteraction.Contains(pInteraction))
             {
                 return;
             }
 
-            // Check if this is a temporary interaction (Temporary = Only one state: Scrolled, Moved)
             tempInteraction = true;
             if (Profile.InteractionAction != null)
             {
