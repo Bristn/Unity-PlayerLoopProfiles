@@ -45,5 +45,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             LowPowerTimeout.Profile = profile;
             UnityEngine.LowLevel.PlayerLoop.SetPlayerLoop(profile.GetResultingSystem());
         }
+
+        private static int ToInt(this System.Enum pEnum) => (int)(object)pEnum;
     }
 }
