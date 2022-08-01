@@ -11,8 +11,6 @@ public class LowPowerInteraction : MonoBehaviour
 {
     [SerializeField] private PlayerInput input;
 
-    public static LowPowerInteraction Instance;
-
     public enum ActionType
     {
         NAVIGATE,
@@ -45,7 +43,6 @@ public class LowPowerInteraction : MonoBehaviour
 
     private void Start()
     {
-        Instance = this;
         actions.Add(actionNames[(int)ActionType.NAVIGATE], Navigate);
         actions.Add(actionNames[(int)ActionType.POINT], Point);
         actions.Add(actionNames[(int)ActionType.RIGHT_CLICK], RightClick);
