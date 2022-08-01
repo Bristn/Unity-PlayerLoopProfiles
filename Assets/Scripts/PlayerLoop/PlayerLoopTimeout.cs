@@ -46,7 +46,7 @@ namespace Assets.Scripts.PlayerLoop
         }
 
 
-        public static void AddInteraction(ActionType pInteraction)
+        public static void AddInteraction(InteractionType pInteraction)
         {
             if (Profile.IgnoredInteraction.Contains(pInteraction))
             {

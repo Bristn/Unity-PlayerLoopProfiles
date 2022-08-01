@@ -11,7 +11,7 @@ namespace Assets.Scripts.PlayerLoop
     {
         [SerializeField] private PlayerInput input;
 
-        public enum ActionType
+        public enum InteractionType
         {
             NAVIGATE,
             POINT,
@@ -43,16 +43,16 @@ namespace Assets.Scripts.PlayerLoop
 
         private void Start()
         {
-            actions.Add(actionNames[(int)ActionType.NAVIGATE], Navigate);
-            actions.Add(actionNames[(int)ActionType.POINT], Point);
-            actions.Add(actionNames[(int)ActionType.RIGHT_CLICK], RightClick);
-            actions.Add(actionNames[(int)ActionType.MIDDLE_CLICK], MiddleClick);
-            actions.Add(actionNames[(int)ActionType.CLICK], Click);
-            actions.Add(actionNames[(int)ActionType.SCROLL_WHEEL], ScrollWheel);
-            actions.Add(actionNames[(int)ActionType.SUBMIT], Submit);
-            actions.Add(actionNames[(int)ActionType.CANCEL], Cancel);
-            actions.Add(actionNames[(int)ActionType.TRACKED_DEVICE_POSITION], TrackedDevicePosition);
-            actions.Add(actionNames[(int)ActionType.TRACKED_DEVICE_ORIENTATION], TrackedDeviceOrientation);
+            actions.Add(actionNames[(int)InteractionType.NAVIGATE], Navigate);
+            actions.Add(actionNames[(int)InteractionType.POINT], Point);
+            actions.Add(actionNames[(int)InteractionType.RIGHT_CLICK], RightClick);
+            actions.Add(actionNames[(int)InteractionType.MIDDLE_CLICK], MiddleClick);
+            actions.Add(actionNames[(int)InteractionType.CLICK], Click);
+            actions.Add(actionNames[(int)InteractionType.SCROLL_WHEEL], ScrollWheel);
+            actions.Add(actionNames[(int)InteractionType.SUBMIT], Submit);
+            actions.Add(actionNames[(int)InteractionType.CANCEL], Cancel);
+            actions.Add(actionNames[(int)InteractionType.TRACKED_DEVICE_POSITION], TrackedDevicePosition);
+            actions.Add(actionNames[(int)InteractionType.TRACKED_DEVICE_ORIENTATION], TrackedDeviceOrientation);
 
             string prefix = "UI/";
             foreach (PlayerInput.ActionEvent element in input.actionEvents)
@@ -76,27 +76,27 @@ namespace Assets.Scripts.PlayerLoop
             }
         }
 
-        public void Navigate(CallbackContext pContext) => Interaction(pContext, ActionType.NAVIGATE);
+        public void Navigate(CallbackContext pContext) => Interaction(pContext, InteractionType.NAVIGATE);
 
-        public void Point(CallbackContext pContext) => Interaction(pContext, ActionType.POINT);
+        public void Point(CallbackContext pContext) => Interaction(pContext, InteractionType.POINT);
 
-        public void Click(CallbackContext pContext) => Interaction(pContext, ActionType.CLICK);
+        public void Click(CallbackContext pContext) => Interaction(pContext, InteractionType.CLICK);
 
-        public void MiddleClick(CallbackContext pContext) => Interaction(pContext, ActionType.MIDDLE_CLICK);
+        public void MiddleClick(CallbackContext pContext) => Interaction(pContext, InteractionType.MIDDLE_CLICK);
 
-        public void RightClick(CallbackContext pContext) => Interaction(pContext, ActionType.RIGHT_CLICK);
+        public void RightClick(CallbackContext pContext) => Interaction(pContext, InteractionType.RIGHT_CLICK);
 
-        public void ScrollWheel(CallbackContext pContext) => Interaction(pContext, ActionType.SCROLL_WHEEL);
+        public void ScrollWheel(CallbackContext pContext) => Interaction(pContext, InteractionType.SCROLL_WHEEL);
 
-        public void Submit(CallbackContext pContext) => Interaction(pContext, ActionType.SUBMIT);
+        public void Submit(CallbackContext pContext) => Interaction(pContext, InteractionType.SUBMIT);
 
-        public void Cancel(CallbackContext pContext) => Interaction(pContext, ActionType.CANCEL);
+        public void Cancel(CallbackContext pContext) => Interaction(pContext, InteractionType.CANCEL);
 
-        public void TrackedDevicePosition(CallbackContext pContext) => Interaction(pContext, ActionType.TRACKED_DEVICE_POSITION);
+        public void TrackedDevicePosition(CallbackContext pContext) => Interaction(pContext, InteractionType.TRACKED_DEVICE_POSITION);
 
-        public void TrackedDeviceOrientation(CallbackContext pContext) => Interaction(pContext, ActionType.TRACKED_DEVICE_ORIENTATION);
+        public void TrackedDeviceOrientation(CallbackContext pContext) => Interaction(pContext, InteractionType.TRACKED_DEVICE_ORIENTATION);
 
-        private void Interaction(CallbackContext pContext, ActionType pType)
+        private void Interaction(CallbackContext pContext, InteractionType pType)
         {
             PlayerLoopTimeout.AddInteraction(pType);
         }

@@ -25,8 +25,8 @@ namespace Assets.Scripts.PlayerLoop
             FilterType pFilteredType, 
             List<PlayerLoopSystem> pAdditionalSystems, 
             PlayerLoopSystem pBaseSystem,
-            Action<ActionType> pInteractionAction,
-            List<ActionType> pIgnoredInteraction,
+            Action<InteractionType> pInteractionAction,
+            List<InteractionType> pIgnoredInteraction,
             Action pTimeoutAction,
             float pTimeoutDuration,
             Dictionary<Type, Test> pUITest)
@@ -49,9 +49,9 @@ namespace Assets.Scripts.PlayerLoop
 
         public List<PlayerLoopSystem> AdditionalSystems { get; private set; }
 
-        public Action<ActionType> InteractionAction { get; private set; }
+        public Action<InteractionType> InteractionAction { get; private set; }
 
-        public List<ActionType> IgnoredInteraction { get; private set; }
+        public List<InteractionType> IgnoredInteraction { get; private set; }
 
         public Action TimeoutAction { get; private set; }
 

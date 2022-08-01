@@ -14,8 +14,8 @@ namespace Assets.Scripts.PlayerLoop
         private List<Type> filteredSystems = new List<Type>();
         private FilterType filteredType = PlayerLoopProfile.FilterType.REMOVE;
         private List<PlayerLoopSystem> additionalSystems = new List<PlayerLoopSystem>();
-        private Action<ActionType> interactionAction = null;
-        private List<ActionType> ignoredInteraction = new List<ActionType>();
+        private Action<InteractionType> interactionAction = null;
+        private List<InteractionType> ignoredInteraction = new List<InteractionType>();
         private Action timeoutAction = null;
         private float timeoutLength = 1;
         private Dictionary<Type, Test> UITest = new Dictionary<Type, Test>();
@@ -51,19 +51,19 @@ namespace Assets.Scripts.PlayerLoop
             return this;
         }
 
-        public PlayerLoopProfileBuilder InteractionCallback(Action<ActionType> pAction)
+        public PlayerLoopProfileBuilder InteractionCallback(Action<InteractionType> pAction)
         {
             interactionAction = pAction;
             return this;
         }
 
-        public PlayerLoopProfileBuilder IgnoreInteraction(params ActionType[] pInteraction)
+        public PlayerLoopProfileBuilder IgnoreInteraction(params InteractionType[] pInteraction)
         {
             ignoredInteraction = pInteraction.ToList();
             return this;
         }
 
-        public PlayerLoopProfileBuilder IgnoreInteraction(List<ActionType> pInteraction)
+        public PlayerLoopProfileBuilder IgnoreInteraction(List<InteractionType> pInteraction)
         {
             ignoredInteraction = pInteraction;
             return this;

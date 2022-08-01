@@ -64,7 +64,7 @@ namespace Assets.Scripts
                 .FilterSystems(idleFilter)
                 .FilterType(FilterType.KEEP)
                 .InteractionCallback(InteractionActionIdle)
-                .IgnoreInteraction(ActionType.POINT)
+                .IgnoreInteraction(InteractionType.POINT)
                 .Build();
 
             PlayerLoopProfile normal = new PlayerLoopProfileBuilder()
@@ -85,10 +85,10 @@ namespace Assets.Scripts
             return tmpInputField.isFocused;
         }
 
-        private void InteractionActionIdle(ActionType pType)
+        private void InteractionActionIdle(InteractionType pType)
         {
             Debug.Log("Interaction: " + pType);
-            if (pType == ActionType.SCROLL_WHEEL)
+            if (pType == InteractionType.SCROLL_WHEEL)
             {
                 return;
             }
