@@ -19,31 +19,11 @@ namespace Assets.Scripts.LowPower
         };
 
 
-        private static Queue<Action<int>> events = new Queue<Action<int>>();
-        private static Queue<int> parameters = new Queue<int>();
-
-        public static void DispatchEvent(Action<int> pEvent, int pValue)
-        {
-            lock (events)
-            {
-                events.Enqueue(pEvent);
-                parameters.Enqueue(pValue);
-            }
-        }
-
         public static void Update()
         {
             if (!Application.isPlaying)
             {
-                return; // TODO
-            }
-
-            lock (events)
-            {
-                while (events.Count > 0)
-                {
-                    events.Dequeue().Invoke(parameters.Dequeue());
-                }
+                return;
             }
 
             LowPowerTimeout.UpdateTimeout();
