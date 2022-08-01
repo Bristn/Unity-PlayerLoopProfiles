@@ -74,10 +74,10 @@ namespace Assets.Scripts
                .UI(typeof(TMP_InputField), aa)
                .Build();
 
-            LowPowerManager.Instance.playerLoopManager.AddProfile(Profile.IDLE, idle);
-            LowPowerManager.Instance.playerLoopManager.AddProfile(Profile.NORMAL, normal);
+            PlayerLoopManager.AddProfile(Profile.IDLE, idle);
+            PlayerLoopManager.AddProfile(Profile.NORMAL, normal);
 
-            LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.IDLE);
+            PlayerLoopManager.SetActiveProfile(Profile.IDLE);
         }
 
         private bool aa(Component pComp)
@@ -94,13 +94,13 @@ namespace Assets.Scripts
                 return;
             }
 
-            LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.NORMAL);
+            PlayerLoopManager.SetActiveProfile(Profile.NORMAL);
         }
 
         private void TimeoutActionActive()
         {
             Debug.Log("Timeout");
-            LowPowerManager.Instance.playerLoopManager.SetActiveProfile(Profile.IDLE);
+            PlayerLoopManager.SetActiveProfile(Profile.IDLE);
         }
 
         // Update is called once per frame

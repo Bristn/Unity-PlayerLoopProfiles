@@ -21,12 +21,8 @@ namespace Assets.Scripts.LowPower
             }
         }
 
-
-        public PlayerLoopManager playerLoopManager { get; private set; }
-
         public LowPowerManager()
         {
-            playerLoopManager = new PlayerLoopManager();
         }
     }
 }

@@ -6,29 +6,29 @@ using UnityEngine;
 
 namespace Assets.Scripts.LowPower.PlayerLoop
 {
-    public class PlayerLoopManager
+    public static class PlayerLoopManager
     {
-        private Dictionary<int, PlayerLoopProfile> profiles = new Dictionary<int, PlayerLoopProfile>();
-        private int activeProfile = -1;
+        private static Dictionary<int, PlayerLoopProfile> profiles = new Dictionary<int, PlayerLoopProfile>();
+        private static int activeProfile = -1;
 
 
-        public int PreventProfileChange { get; set; } = 0;
+        public static int PreventProfileChange { get; set; } = 0;
 
-        public bool AddProfile(System.Enum pKey, PlayerLoopProfile pProfile) => profiles.TryAdd(pKey.ToInt(), pProfile);
+        public static bool AddProfile(System.Enum pKey, PlayerLoopProfile pProfile) => profiles.TryAdd(pKey.ToInt(), pProfile);
 
-        public bool AddProfile(int pKey, PlayerLoopProfile pProfile) => profiles.TryAdd(pKey, pProfile);
+        public static bool AddProfile(int pKey, PlayerLoopProfile pProfile) => profiles.TryAdd(pKey, pProfile);
 
-        public bool RemoveProfile(System.Enum pKey) => profiles.Remove(pKey.ToInt());
+        public static bool RemoveProfile(System.Enum pKey) => profiles.Remove(pKey.ToInt());
 
-        public bool RemoveProfile(int pKey) => profiles.Remove(pKey);
+        public static bool RemoveProfile(int pKey) => profiles.Remove(pKey);
 
-        public PlayerLoopProfile GetProfile(System.Enum pKey) => profiles.GetValueOrDefault(pKey.ToInt(), null);
+        public static PlayerLoopProfile GetProfile(System.Enum pKey) => profiles.GetValueOrDefault(pKey.ToInt(), null);
 
-        public PlayerLoopProfile GetProfile(int pKey) => profiles.GetValueOrDefault(pKey, null);
+        public static PlayerLoopProfile GetProfile(int pKey) => profiles.GetValueOrDefault(pKey, null);
 
-        public void SetActiveProfile(System.Enum pKey) => SetActiveProfile(pKey.ToInt());
+        public static void SetActiveProfile(System.Enum pKey) => SetActiveProfile(pKey.ToInt());
 
-        public void SetActiveProfile(int pKey)
+        public static void SetActiveProfile(int pKey)
         {
             if (activeProfile == pKey)
             {
