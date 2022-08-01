@@ -15,9 +15,9 @@ namespace Assets.Scripts.LowPower
         private float timePassed;
         private bool timeoutHappened;
         private bool tempInteraction;
-        private IPlayerLoopProfile profile;
+        private PlayerLoopProfile profile;
 
-        public IPlayerLoopProfile Profile 
+        public PlayerLoopProfile Profile 
         {
             private get => profile;
             set

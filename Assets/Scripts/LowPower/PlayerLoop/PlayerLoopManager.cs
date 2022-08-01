@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.LowPower.PlayerLoop
 {
-    public class PlayerLoopManager : IPlayerLoopManager
+    public class PlayerLoopManager
     {
-        private Dictionary<int, IPlayerLoopProfile> profiles = new Dictionary<int, IPlayerLoopProfile>();
+        private Dictionary<int, PlayerLoopProfile> profiles = new Dictionary<int, PlayerLoopProfile>();
         private int activeProfile = -1;
 
         private LowPowerTimeout timeout;
@@ -21,17 +21,17 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             LowPowerInteraction.Instance.Timeout = timeout;
         }
 
-        public bool AddProfile(System.Enum pKey, IPlayerLoopProfile pProfile) => profiles.TryAdd(pKey.ToInt(), pProfile);
+        public bool AddProfile(System.Enum pKey, PlayerLoopProfile pProfile) => profiles.TryAdd(pKey.ToInt(), pProfile);
 
-        public bool AddProfile(int pKey, IPlayerLoopProfile pProfile) => profiles.TryAdd(pKey, pProfile);
+        public bool AddProfile(int pKey, PlayerLoopProfile pProfile) => profiles.TryAdd(pKey, pProfile);
 
         public bool RemoveProfile(System.Enum pKey) => profiles.Remove(pKey.ToInt());
 
         public bool RemoveProfile(int pKey) => profiles.Remove(pKey);
 
-        public IPlayerLoopProfile GetProfile(System.Enum pKey) => profiles.GetValueOrDefault(pKey.ToInt(), null);
+        public PlayerLoopProfile GetProfile(System.Enum pKey) => profiles.GetValueOrDefault(pKey.ToInt(), null);
 
-        public IPlayerLoopProfile GetProfile(int pKey) => profiles.GetValueOrDefault(pKey, null);
+        public PlayerLoopProfile GetProfile(int pKey) => profiles.GetValueOrDefault(pKey, null);
 
         public void SetActiveProfile(System.Enum pKey) => SetActiveProfile(pKey.ToInt());
 
@@ -43,7 +43,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             }
             activeProfile = pKey;
 
-            IPlayerLoopProfile profile = GetProfile(activeProfile);
+            PlayerLoopProfile profile = GetProfile(activeProfile);
             if (profile == null)
             {
                 return;

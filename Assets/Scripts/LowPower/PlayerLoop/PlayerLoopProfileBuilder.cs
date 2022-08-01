@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.LowLevel;
-using static Assets.Scripts.LowPower.PlayerLoop.IPlayerLoopProfile;
+using static Assets.Scripts.LowPower.PlayerLoop.PlayerLoopProfile;
 using static LowPowerInteraction;
 
 namespace Assets.Scripts.LowPower.PlayerLoop
@@ -12,7 +12,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
     public class PlayerLoopProfileBuilder 
     {
         private List<Type> filteredSystems = new List<Type>();
-        private FilterType filteredType = IPlayerLoopProfile.FilterType.REMOVE;
+        private FilterType filteredType = PlayerLoopProfile.FilterType.REMOVE;
         private List<PlayerLoopSystem> additionalSystems = new List<PlayerLoopSystem>();
         private Action<ActionType> interactionAction = null;
         private List<ActionType> ignoredInteraction = new List<ActionType>();
@@ -93,7 +93,7 @@ namespace Assets.Scripts.LowPower.PlayerLoop
             return this;
         }
 
-        public IPlayerLoopProfile Build()
+        public PlayerLoopProfile Build()
         {
             if (baseSystem.subSystemList == null || baseSystem.subSystemList.Length == 0)
             {

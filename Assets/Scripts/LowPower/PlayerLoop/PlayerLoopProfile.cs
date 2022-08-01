@@ -4,14 +4,21 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.LowLevel;
-using static Assets.Scripts.LowPower.PlayerLoop.IPlayerLoopProfile;
 using static LowPowerInteraction;
 
 namespace Assets.Scripts.LowPower.PlayerLoop
 {
-    public class PlayerLoopProfile : IPlayerLoopProfile
+    public class PlayerLoopProfile
     {
         private PlayerLoopSystem baseSystem;
+
+        public enum FilterType
+        {
+            KEEP,
+            REMOVE
+        }
+
+        public delegate bool Test(Component pObject);
 
         public PlayerLoopProfile(
             List<Type> pFilteredSystems, 

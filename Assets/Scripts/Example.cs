@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-using static Assets.Scripts.LowPower.PlayerLoop.IPlayerLoopProfile;
+using static Assets.Scripts.LowPower.PlayerLoop.PlayerLoopProfile;
 using static LowPowerInteraction;
 using static UnityEngine.PlayerLoop.FixedUpdate;
 using static UnityEngine.PlayerLoop.Initialization;
@@ -61,14 +61,14 @@ namespace Assets.Scripts
 
            
 
-            IPlayerLoopProfile idle = new PlayerLoopProfileBuilder()
+            PlayerLoopProfile idle = new PlayerLoopProfileBuilder()
                 .FilterSystems(idleFilter)
                 .FilterType(FilterType.KEEP)
                 .InteractionCallback(InteractionActionIdle)
                 .IgnoreInteraction(ActionType.POINT)
                 .Build();
 
-            IPlayerLoopProfile normal = new PlayerLoopProfileBuilder()
+            PlayerLoopProfile normal = new PlayerLoopProfileBuilder()
                .TimeoutCallback(TimeoutActionActive)
                .TimeoutDuration(0.1f) 
                .UI(typeof(TMP_InputField), aa)
