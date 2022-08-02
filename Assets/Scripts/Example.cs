@@ -71,8 +71,8 @@ namespace Assets.Scripts
             PlayerLoopProfile normal = new PlayerLoopProfileBuilder()
                .TimeoutCallback(TimeoutActionActive)
                .TimeoutDuration(0.1f) 
-               .UI(typeof(TMP_InputField), aa)
-               .UI(typeof(TextField), bb)
+               .UI(typeof(TMP_InputField), CallbackTextMeshPro)
+               .UI(typeof(TextField), CallbackUiToolkit)
                .Build();
 
             PlayerLoopManager.AddProfile(Profile.IDLE, idle);
@@ -81,16 +81,13 @@ namespace Assets.Scripts
             PlayerLoopManager.SetActiveProfile(Profile.IDLE);
         }
 
-        private bool aa(Component pComp)
+        private bool CallbackTextMeshPro(Component pTextField)
         {
-            TMP_InputField tmpInputField = (TMP_InputField)pComp;
-            return tmpInputField.isFocused;
+            return ((TMP_InputField)pTextField).isFocused;
         }
 
-        private bool bb(Focusable pComp)
+        private bool CallbackUiToolkit(Focusable pTextField)
         {
-            TextField tmpInputField = (TextField)pComp;
-            Debug.Log("UI Toolkit: " + tmpInputField + " " + tmpInputField.canGrabFocus + "  " + tmpInputField.focusable);
             return true;
         }
 
