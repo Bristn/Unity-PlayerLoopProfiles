@@ -86,32 +86,8 @@ namespace Assets.Scripts.PlayerLoop
                 return false;
             }
 
-
-            Component[] comps = selected.GetComponents(typeof(Component));
-            foreach (Component c in comps)
-            {
-                // Debug.Log(c + "  " + (c is PanelEventHandler));
-                if (c is PanelEventHandler)
-                {
-                    Focusable focused = ((PanelEventHandler)c).panel.focusController.focusedElement;
-                    Debug.Log("Focused: " + focused);
-                    if (focused == null)
-                    {
-                        break;
-                    }
-
-                    foreach (var element in Profile.UiToolkitTest)
-                    {
-                        if (focused.GetType() == element.Key)
-                        {
-                            if (element.Value.Invoke(focused))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    break;
-                }
+            if (CheckToolkitElement(selected)) {
+                return true;
             }
 
             foreach (var element in Profile.UITest)
@@ -125,6 +101,36 @@ namespace Assets.Scripts.PlayerLoop
                 }
             }
       
+            return false;
+        }
+
+        private static bool CheckToolkitElement(GameObject pSelected)
+        {
+            foreach (Component compoenent in pSelected.GetComponents(typeof(Component)))
+            {
+                if (compoenent is not PanelEventHandler)
+                {
+                    continue;
+                }
+
+                Focusable focused = ((PanelEventHandler)compoenent).panel.focusController.focusedElement;
+                if (focused == null)
+                {
+                    continue;
+                }
+
+                foreach (var element in Profile.UiToolkitTest)
+                {
+                    if (focused.GetType() == element.Key)
+                    {
+                        if (element.Value.Invoke(focused))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
             return false;
         }
 
