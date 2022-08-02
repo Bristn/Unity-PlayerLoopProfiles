@@ -19,6 +19,7 @@ namespace Assets.Scripts.PlayerLoop
         private Action timeoutAction = null;
         private float timeoutLength = 1;
         private Dictionary<Type, Test> UITest = new Dictionary<Type, Test>();
+        private Dictionary<Type, ToolkitTest> UiToolkitTest = new Dictionary<Type, ToolkitTest>();
         private PlayerLoopSystem baseSystem = new PlayerLoopSystem();
 
         public PlayerLoopProfileBuilder FilterSystems(params Type[] pSystems)
@@ -87,6 +88,12 @@ namespace Assets.Scripts.PlayerLoop
             return this;
         }
 
+        public PlayerLoopProfileBuilder UI(Type pType, ToolkitTest pSystems)
+        {
+            UiToolkitTest.TryAdd(pType, pSystems);
+            return this;
+        }
+
         public PlayerLoopProfileBuilder BaseSystem(PlayerLoopSystem pBaseSystem)
         {
             baseSystem = pBaseSystem;
@@ -109,7 +116,8 @@ namespace Assets.Scripts.PlayerLoop
                 ignoredInteraction,
                 timeoutAction, 
                 timeoutLength,
-                UITest
+                UITest,
+                UiToolkitTest
             );
         }
     }

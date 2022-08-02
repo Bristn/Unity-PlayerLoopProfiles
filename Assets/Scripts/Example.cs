@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UIElements;
 using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 using static Assets.Scripts.PlayerLoop.PlayerLoopProfile;
 using static UnityEngine.PlayerLoop.FixedUpdate;
@@ -71,6 +72,7 @@ namespace Assets.Scripts
                .TimeoutCallback(TimeoutActionActive)
                .TimeoutDuration(0.1f) 
                .UI(typeof(TMP_InputField), aa)
+               .UI(typeof(TextField), bb)
                .Build();
 
             PlayerLoopManager.AddProfile(Profile.IDLE, idle);
@@ -83,6 +85,13 @@ namespace Assets.Scripts
         {
             TMP_InputField tmpInputField = (TMP_InputField)pComp;
             return tmpInputField.isFocused;
+        }
+
+        private bool bb(Focusable pComp)
+        {
+            TextField tmpInputField = (TextField)pComp;
+            Debug.Log("UI Toolkit: " + tmpInputField + " " + tmpInputField.canGrabFocus + "  " + tmpInputField.focusable);
+            return true;
         }
 
         private void InteractionActionIdle(InteractionType pType)

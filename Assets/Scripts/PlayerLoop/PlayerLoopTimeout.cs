@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.LowLevel;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 
 namespace Assets.Scripts.PlayerLoop
@@ -83,6 +84,34 @@ namespace Assets.Scripts.PlayerLoop
             if (selected == null)
             {
                 return false;
+            }
+
+
+            Component[] comps = selected.GetComponents(typeof(Component));
+            foreach (Component c in comps)
+            {
+                // Debug.Log(c + "  " + (c is PanelEventHandler));
+                if (c is PanelEventHandler)
+                {
+                    Focusable focused = ((PanelEventHandler)c).panel.focusController.focusedElement;
+                    Debug.Log("Focused: " + focused);
+                    if (focused == null)
+                    {
+                        break;
+                    }
+
+                    foreach (var element in Profile.UiToolkitTest)
+                    {
+                        if (focused.GetType() == element.Key)
+                        {
+                            if (element.Value.Invoke(focused))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    break;
+                }
             }
 
             foreach (var element in Profile.UITest)

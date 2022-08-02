@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.LowLevel;
+using UnityEngine.UIElements;
 using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
 
 namespace Assets.Scripts.PlayerLoop
@@ -20,6 +21,8 @@ namespace Assets.Scripts.PlayerLoop
 
         public delegate bool Test(Component pObject);
 
+        public delegate bool ToolkitTest(Focusable pObject);
+
         public PlayerLoopProfile(
             List<Type> pFilteredSystems, 
             FilterType pFilteredType, 
@@ -29,7 +32,8 @@ namespace Assets.Scripts.PlayerLoop
             List<InteractionType> pIgnoredInteraction,
             Action pTimeoutAction,
             float pTimeoutDuration,
-            Dictionary<Type, Test> pUITest)
+            Dictionary<Type, Test> pUITest,
+            Dictionary<Type, ToolkitTest> pUiToolkitTest)
         {
             FilteredType = pFilteredType;
             FilteredSystems = pFilteredSystems;
@@ -39,6 +43,7 @@ namespace Assets.Scripts.PlayerLoop
             TimeoutAction = pTimeoutAction;
             TimeoutDuration = pTimeoutDuration;
             UITest = pUITest;
+            UiToolkitTest = pUiToolkitTest;
 
             baseSystem = pBaseSystem;
         }
@@ -58,6 +63,8 @@ namespace Assets.Scripts.PlayerLoop
         public float TimeoutDuration { get; private set; }
 
         public Dictionary<Type, Test> UITest  { get; private set; }
+
+        public Dictionary<Type, ToolkitTest> UiToolkitTest  { get; private set; }
 
         private PlayerLoopSystem cachedSystem;
 
