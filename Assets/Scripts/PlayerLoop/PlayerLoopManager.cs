@@ -26,6 +26,8 @@ namespace Assets.Scripts.PlayerLoop
 
         public static PlayerLoopProfile GetProfile(int pKey) => profiles.GetValueOrDefault(pKey, null);
 
+        public static int GetActiveProfile() => activeProfile;
+
         public static void SetActiveProfile(System.Enum pKey) => SetActiveProfile(pKey.ToInt());
 
         public static void SetActiveProfile(int pKey)
