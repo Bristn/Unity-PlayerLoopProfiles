@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.LowLevel;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
+using static PlayerLoopProfiles.PlayerLoopInteraction;
 
-namespace Assets.Scripts.PlayerLoop
+namespace PlayerLoopProfiles
 {
     public static class PlayerLoopTimeout 
     {
@@ -133,7 +133,6 @@ namespace Assets.Scripts.PlayerLoop
 
             return false;
         }
-
 
         private static void ResetTimer()
         {

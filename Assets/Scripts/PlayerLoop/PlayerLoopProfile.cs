@@ -5,9 +5,9 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.LowLevel;
 using UnityEngine.UIElements;
-using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
+using static PlayerLoopProfiles.PlayerLoopInteraction;
 
-namespace Assets.Scripts.PlayerLoop
+namespace PlayerLoopProfiles
 {
     public class PlayerLoopProfile
     {
@@ -23,17 +23,19 @@ namespace Assets.Scripts.PlayerLoop
 
         public delegate bool ToolkitTest(Focusable pObject);
 
-        public PlayerLoopProfile(
-            List<Type> pFilteredSystems, 
-            FilterType pFilteredType, 
-            List<PlayerLoopSystem> pAdditionalSystems, 
-            PlayerLoopSystem pBaseSystem,
-            Action<InteractionType> pInteractionAction,
-            List<InteractionType> pIgnoredInteraction,
-            Action pTimeoutAction,
-            float pTimeoutDuration,
-            Dictionary<Type, Test> pUITest,
-            Dictionary<Type, ToolkitTest> pUiToolkitTest)
+        public PlayerLoopProfile
+            (
+                List<Type> pFilteredSystems, 
+                FilterType pFilteredType, 
+                List<PlayerLoopSystem> pAdditionalSystems, 
+                PlayerLoopSystem pBaseSystem,
+                Action<InteractionType> pInteractionAction,
+                List<InteractionType> pIgnoredInteraction,
+                Action pTimeoutAction,
+                float pTimeoutDuration,
+                Dictionary<Type, Test> pUITest,
+                Dictionary<Type, ToolkitTest> pUiToolkitTest
+            )
         {
             FilteredType = pFilteredType;
             FilteredSystems = pFilteredSystems;

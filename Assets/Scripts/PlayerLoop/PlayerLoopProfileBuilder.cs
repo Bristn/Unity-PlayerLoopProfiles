@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.LowLevel;
-using static Assets.Scripts.PlayerLoop.PlayerLoopInteraction;
-using static Assets.Scripts.PlayerLoop.PlayerLoopProfile;
+using static PlayerLoopProfiles.PlayerLoopInteraction;
+using static PlayerLoopProfiles.PlayerLoopProfile;
 
-namespace Assets.Scripts.PlayerLoop
+namespace PlayerLoopProfiles
 {
     public class PlayerLoopProfileBuilder 
     {
@@ -104,7 +104,7 @@ namespace Assets.Scripts.PlayerLoop
         {
             if (baseSystem.subSystemList == null || baseSystem.subSystemList.Length == 0)
             {
-                baseSystem = UnityEngine.LowLevel.PlayerLoop.GetDefaultPlayerLoop();
+                baseSystem = PlayerLoop.GetDefaultPlayerLoop();
             }
 
             return new PlayerLoopProfile(

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
-namespace Assets.Scripts.PlayerLoop
+namespace PlayerLoopProfiles
 {
     public class PlayerLoopInteraction : MonoBehaviour
     {
@@ -27,16 +27,16 @@ namespace Assets.Scripts.PlayerLoop
 
         private List<string> actionNames = new string[]
         {
-        "Navigate",
-        "Point",
-        "RightClick",
-        "MiddleClick",
-        "Click",
-        "ScrollWheel",
-        "Submit",
-        "Cancel",
-        "TrackedDevicePosition",
-        "TrackedDeviceOrientation"
+            "Navigate",
+            "Point",
+            "RightClick",
+            "MiddleClick",
+            "Click",
+            "ScrollWheel",
+            "Submit",
+            "Cancel",
+            "TrackedDevicePosition",
+            "TrackedDeviceOrientation"
         }.ToList();
 
         private Dictionary<string, UnityAction<CallbackContext>> actions = new Dictionary<string, UnityAction<CallbackContext>>();
