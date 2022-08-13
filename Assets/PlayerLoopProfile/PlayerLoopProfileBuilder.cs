@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UnityEngine.LowLevel;
 using static PlayerLoopProfiles.PlayerLoopInteraction;
 using static PlayerLoopProfiles.PlayerLoopProfile;
