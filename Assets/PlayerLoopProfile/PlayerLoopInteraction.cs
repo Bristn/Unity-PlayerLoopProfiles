@@ -39,21 +39,8 @@ namespace PlayerLoopProfiles
             "TrackedDeviceOrientation"
         }.ToList();
 
-        private Dictionary<string, UnityAction<CallbackContext>> actions = new Dictionary<string, UnityAction<CallbackContext>>();
-
         private void Start()
         {
-            actions.Add(actionNames[(int)InteractionType.NAVIGATE], Navigate);
-            actions.Add(actionNames[(int)InteractionType.POINT], Point);
-            actions.Add(actionNames[(int)InteractionType.RIGHT_CLICK], RightClick);
-            actions.Add(actionNames[(int)InteractionType.MIDDLE_CLICK], MiddleClick);
-            actions.Add(actionNames[(int)InteractionType.CLICK], Click);
-            actions.Add(actionNames[(int)InteractionType.SCROLL_WHEEL], ScrollWheel);
-            actions.Add(actionNames[(int)InteractionType.SUBMIT], Submit);
-            actions.Add(actionNames[(int)InteractionType.CANCEL], Cancel);
-            actions.Add(actionNames[(int)InteractionType.TRACKED_DEVICE_POSITION], TrackedDevicePosition);
-            actions.Add(actionNames[(int)InteractionType.TRACKED_DEVICE_ORIENTATION], TrackedDeviceOrientation);
-
             string prefix = "UI/";
             foreach (PlayerInput.ActionEvent element in input.actionEvents)
             {
@@ -69,32 +56,10 @@ namespace PlayerLoopProfiles
                     name = name.Substring(0, name.IndexOf("["));
                 }
 
-                if (actions.TryGetValue(name, out UnityAction<CallbackContext> result))
-                {
-                    element.AddListener(result);
-                }
+                InteractionType type = (InteractionType) actionNames.IndexOf(name);
+                element.AddListener((context) => Interaction(context, type));
             }
         }
-
-        public void Navigate(CallbackContext pContext) => Interaction(pContext, InteractionType.NAVIGATE);
-
-        public void Point(CallbackContext pContext) => Interaction(pContext, InteractionType.POINT);
-
-        public void Click(CallbackContext pContext) => Interaction(pContext, InteractionType.CLICK);
-
-        public void MiddleClick(CallbackContext pContext) => Interaction(pContext, InteractionType.MIDDLE_CLICK);
-
-        public void RightClick(CallbackContext pContext) => Interaction(pContext, InteractionType.RIGHT_CLICK);
-
-        public void ScrollWheel(CallbackContext pContext) => Interaction(pContext, InteractionType.SCROLL_WHEEL);
-
-        public void Submit(CallbackContext pContext) => Interaction(pContext, InteractionType.SUBMIT);
-
-        public void Cancel(CallbackContext pContext) => Interaction(pContext, InteractionType.CANCEL);
-
-        public void TrackedDevicePosition(CallbackContext pContext) => Interaction(pContext, InteractionType.TRACKED_DEVICE_POSITION);
-
-        public void TrackedDeviceOrientation(CallbackContext pContext) => Interaction(pContext, InteractionType.TRACKED_DEVICE_ORIENTATION);
 
         private void Interaction(CallbackContext pContext, InteractionType pType)
         {
