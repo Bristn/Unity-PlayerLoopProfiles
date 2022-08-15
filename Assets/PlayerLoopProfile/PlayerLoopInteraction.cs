@@ -44,7 +44,7 @@ namespace PlayerLoopProfiles
             string prefix = "UI/";
             foreach (PlayerInput.ActionEvent element in input.actionEvents)
             {
-                if (!element.actionName.StartsWith("UI/"))
+                if (!element.actionName.StartsWith(prefix))
                 {
                     continue;
                 }
