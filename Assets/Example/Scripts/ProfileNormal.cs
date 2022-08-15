@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static Example;
+using static PlayerLoopProfiles.PlayerLoopInteraction;
 
 public static class ProfileNormal 
 {
@@ -13,8 +14,8 @@ public static class ProfileNormal
         PlayerLoopProfile profile = new PlayerLoopProfileBuilder()
            .TimeoutCallback(Timeout)
            .TimeoutDuration(0.1f)
-           .UI(typeof(TMP_InputField), CallbackTextMeshPro)
-           .UI(typeof(TextField), CallbackUiToolkit)
+           .ActiveUiEvaluation(typeof(TMP_InputField), CallbackTextMeshPro)
+           .ActiveUiEvaluation(typeof(TextField), CallbackUiToolkit)
            .Build();
         return profile;
     }

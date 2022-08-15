@@ -44,12 +44,11 @@ namespace PlayerLoopProfiles
 
         public static void AddInteraction(InteractionType pInteraction)
         {
-            if (Profile.IgnoredInteraction.Contains(pInteraction))
+            if (!Profile.IgnoredInteraction.Contains(pInteraction))
             {
-                return;
+                tempInteraction = true;
             }
-
-            tempInteraction = true;
+            
             if (Profile.InteractionAction != null)
             {
                 Profile.InteractionAction.Invoke(pInteraction);
@@ -85,7 +84,7 @@ namespace PlayerLoopProfiles
                 return true;
             }
 
-            foreach (var element in Profile.UITest)
+            foreach (var element in Profile.UiEvaluation)
             {
                 if (selected.TryGetComponent(element.Key, out Component component))
                 {
@@ -114,7 +113,7 @@ namespace PlayerLoopProfiles
                     continue;
                 }
 
-                foreach (var element in Profile.UiToolkitTest)
+                foreach (var element in Profile.UiToolkitEvaluation)
                 {
                     if (focused.GetType() == element.Key)
                     {

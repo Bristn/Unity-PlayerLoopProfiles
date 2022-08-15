@@ -24,24 +24,16 @@ public static class ProfileIdle
             typeof(Initialization.ProfilerStartFrame),
             typeof(PostLateUpdate.ProfilerSynchronizeStats),
             typeof(PostLateUpdate.ProfilerEndFrame),
-
-            // input Test
-            typeof(Initialization.SynchronizeInputs),
-            typeof(EarlyUpdate.UpdateInputManager),
-            typeof(EarlyUpdate.ProcessRemoteInput),
-            typeof(FixedUpdate.NewInputFixedUpdate),
-            typeof(PreUpdate.CheckTexFieldInput),
-            typeof(PreUpdate.NewInputUpdate),
-            typeof(PostLateUpdate.InputEndFrame),
-            typeof(PostLateUpdate.ResetInputAxis),
         });
 
         PlayerLoopProfile profile = new PlayerLoopProfileBuilder()
             .FilterSystems(filter)
             .FilterType(FilterType.KEEP)
             .InteractionCallback(Interaction)
-            .IgnoreInteraction(InteractionType.POINT)
+            .IgnoredInteractions(InteractionType.POINT)
             .Build();
+
+        profile.PrintProfile();
         return profile;
     }
 
