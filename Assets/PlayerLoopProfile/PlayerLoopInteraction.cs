@@ -12,24 +12,42 @@ namespace PlayerLoopProfiles
         private static List<InputActionMap> actionsMaps = new List<InputActionMap>();
         private static Dictionary<string, string> actionLookup = new Dictionary<string, string>();
 
+        /// <summary>
+        /// All actions of the registered maps are processed.
+        /// There can be multiple registered maps. 
+        /// This method registers a new action map.
+        /// </summary>
         public static void AddActionMap(InputActionMap pMap)
         {
             actionsMaps.Add(pMap);
             UpdateActionLookup();
         }
 
+        /// <summary>
+        /// All actions of the registered maps are processed.
+        /// There can be multiple registered maps. 
+        /// This method removes a action map.
+        /// </summary>
         public static void RemoveActionMap(InputActionMap pMap)
         {
             actionsMaps.Remove(pMap);
             UpdateActionLookup();
         }
 
+        /// <summary>
+        /// All actions of every registered map is processed.
+        /// There can be multiple registered maps. 
+        /// This method removes all action maps.
+        /// </summary>
         public static void ClearActionMaps()
         {
             actionsMaps.Clear();
             UpdateActionLookup();
         }
-        
+
+        /// <summary>
+        /// Update the internal action lookup to reflect the registered maps.
+        /// </summary>
         private static void UpdateActionLookup()
         {
             actionLookup.Clear();
