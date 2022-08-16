@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.LowLevel;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
-using static PlayerLoopProfiles.PlayerLoopInteraction;
 
 namespace PlayerLoopProfiles
 {
@@ -40,8 +38,8 @@ namespace PlayerLoopProfiles
                 FilterType pFilteredType, 
                 List<PlayerLoopSystem> pAdditionalSystems, 
                 PlayerLoopSystem pBaseSystem,
-                Action<InteractionType> pInteractionAction,
-                List<InteractionType> pIgnoredInteraction,
+                Action<string> pInteractionAction,
+                List<string> pIgnoredInteraction,
                 Action pTimeoutAction,
                 float pTimeoutDuration,
                 Dictionary<Type, ActiveUiEvaluation> pUiEvaluation,
@@ -69,9 +67,9 @@ namespace PlayerLoopProfiles
 
         public List<PlayerLoopSystem> AdditionalSystems { get; private set; }
 
-        public Action<InteractionType> InteractionAction { get; private set; }
+        public Action<string> InteractionAction { get; private set; }
 
-        public List<InteractionType> IgnoredInteraction { get; private set; }
+        public List<string> IgnoredInteraction { get; private set; }
 
         public Action TimeoutAction { get; private set; }
 

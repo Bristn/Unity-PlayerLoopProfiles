@@ -1,11 +1,8 @@
 using PlayerLoopProfiles;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static Example;
-using static PlayerLoopProfiles.PlayerLoopInteraction;
 
 public static class ProfileNormal 
 {

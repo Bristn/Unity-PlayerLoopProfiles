@@ -2,7 +2,6 @@
 using UnityEngine.EventSystems;
 using UnityEngine.LowLevel;
 using UnityEngine.UIElements;
-using static PlayerLoopProfiles.PlayerLoopInteraction;
 
 namespace PlayerLoopProfiles
 {
@@ -42,7 +41,7 @@ namespace PlayerLoopProfiles
         }
 
 
-        public static void AddInteraction(InteractionType pInteraction)
+        public static void AddInteraction(string pInteraction)
         {
             if (!Profile.IgnoredInteraction.Contains(pInteraction))
             {

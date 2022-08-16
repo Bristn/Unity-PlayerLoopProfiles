@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.LowLevel;
 using UnityEngine.PlayerLoop;
-using static PlayerLoopProfiles.PlayerLoopInteraction;
 using static PlayerLoopProfiles.PlayerLoopProfile;
 
 namespace PlayerLoopProfiles
@@ -28,8 +27,8 @@ namespace PlayerLoopProfiles
         private List<Type> filteredSystems = new List<Type>();
         private FilterType filteredType = PlayerLoopProfile.FilterType.REMOVE;
         private List<PlayerLoopSystem> additionalSystems = new List<PlayerLoopSystem>();
-        private Action<InteractionType> interactionAction = null;
-        private List<InteractionType> ignoredInteraction = new List<InteractionType>();
+        private Action<string> interactionAction = null;
+        private List<string> ignoredInteraction = new List<string>();
         private Action timeoutAction = null;
         private float timeoutLength = 1;
         private Dictionary<Type, ActiveUiEvaluation> UITest = new Dictionary<Type, ActiveUiEvaluation>();
@@ -97,7 +96,7 @@ namespace PlayerLoopProfiles
         /// IMPORTANT: If you decide to use this method of getting the user interaction ensure 'KeepInteractionSystems' is set to true or ensure
         /// this PlayerLoopProfile does not remove input related systems, as removing them results in no interaction being recognized
         /// </summary>
-        public PlayerLoopProfileBuilder InteractionCallback(Action<InteractionType> pAction)
+        public PlayerLoopProfileBuilder InteractionCallback(Action<string> pAction)
         {
             interactionAction = pAction;
             return this;
@@ -109,7 +108,7 @@ namespace PlayerLoopProfiles
         /// meaning if the user only moves the mouse the 'TimeoutCallback' will still be called after 'TimeoutDuration' seconds.
         /// By default no interactions are ignored.
         /// </summary>
-        public PlayerLoopProfileBuilder IgnoredInteractions(params InteractionType[] pInteraction)
+        public PlayerLoopProfileBuilder IgnoredInteractions(params string[] pInteraction)
         {
             ignoredInteraction = pInteraction.ToList();
             return this;
@@ -121,7 +120,7 @@ namespace PlayerLoopProfiles
         /// meaning if the user only moves the mouse the 'TimeoutCallback' will still be called after 'TimeoutDuration' seconds.
         /// By default no interactions are ignored.
         /// </summary>
-        public PlayerLoopProfileBuilder IgnoredInteractions(List<InteractionType> pInteraction)
+        public PlayerLoopProfileBuilder IgnoredInteractions(List<string> pInteraction)
         {
             ignoredInteraction = pInteraction;
             return this;

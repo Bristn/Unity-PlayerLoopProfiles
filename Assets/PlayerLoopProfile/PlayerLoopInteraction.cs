@@ -1,68 +1,85 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
+using UnityEngine.InputSystem.LowLevel;
 
 namespace PlayerLoopProfiles
 {
-    public class PlayerLoopInteraction : MonoBehaviour
+    public static class PlayerLoopInteraction
     {
-        [SerializeField] private PlayerInput input;
+        private static List<InputActionMap> actionsMaps = new List<InputActionMap>();
+        private static Dictionary<string, string> actionLookup = new Dictionary<string, string>();
 
-        public enum InteractionType
+        public static void AddActionMap(InputActionMap pMap)
         {
-            NAVIGATE,
-            POINT,
-            RIGHT_CLICK,
-            MIDDLE_CLICK,
-            CLICK,
-            SCROLL_WHEEL,
-            SUBMIT,
-            CANCEL,
-            TRACKED_DEVICE_POSITION,
-            TRACKED_DEVICE_ORIENTATION,
+            actionsMaps.Add(pMap);
+            UpdateActionLookup();
         }
 
-        private List<string> actionNames = new string[]
+        public static void RemoveActionMap(InputActionMap pMap)
         {
-            "Navigate",
-            "Point",
-            "RightClick",
-            "MiddleClick",
-            "Click",
-            "ScrollWheel",
-            "Submit",
-            "Cancel",
-            "TrackedDevicePosition",
-            "TrackedDeviceOrientation"
-        }.ToList();
+            actionsMaps.Remove(pMap);
+            UpdateActionLookup();
+        }
 
-        private void Start()
+        public static void ClearActionMaps()
         {
-            string prefix = "UI/";
-            foreach (PlayerInput.ActionEvent element in input.actionEvents)
+            actionsMaps.Clear();
+            UpdateActionLookup();
+        }
+        
+        private static void UpdateActionLookup()
+        {
+            actionLookup.Clear();
+            InputSystem.onEvent -= EventListener;
+            foreach (InputActionMap map in actionsMaps)
             {
-                if (!element.actionName.StartsWith(prefix))
+                foreach (InputAction action in map.actions)
                 {
-                    continue;
+                    foreach (InputControl control in action.controls)
+                    {
+                        actionLookup.TryAdd(control.path, action.name);
+                    }
                 }
+            }
+            InputSystem.onEvent += EventListener;
+        }
 
-                string name = element.actionName;
-                name = name.Substring(name.IndexOf(prefix) + prefix.Length);
-                if (name.Contains("["))
+        private static void EventListener(InputEventPtr eventPtr, InputDevice device)
+        {
+            if (!Application.isPlaying)
+            {
+                InputSystem.onEvent -= EventListener;
+                return;
+            }
+
+            if (actionLookup.Count == 0 || !eventPtr.IsA<StateEvent>() && !eventPtr.IsA<DeltaStateEvent>())
+            {
+                return;
+            }
+
+            foreach (InputControl control in eventPtr.EnumerateChangedControls(device))
+            {
+                string info = null;
+                string name = control.path;
+                while (name.Count(x => x == '/') > 1)
                 {
-                    name = name.Substring(0, name.IndexOf("["));
+                    info = actionLookup.GetValueOrDefault(name, string.Empty);
+                    name = name.Substring(0, name.LastIndexOf("/"));
+                    OnInteraction(info);
                 }
-
-                InteractionType type = (InteractionType) actionNames.IndexOf(name);
-                element.AddListener((context) => Interaction(context, type));
             }
         }
 
-        private void Interaction(CallbackContext pContext, InteractionType pType)
+        private static void OnInteraction(string pType)
         {
+            if (pType == string.Empty)
+            {
+                return;
+            }
+
             PlayerLoopTimeout.AddInteraction(pType);
         }
     }

@@ -1,9 +1,9 @@
 using PlayerLoopProfiles;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.PlayerLoop;
 using static Example;
-using static PlayerLoopProfiles.PlayerLoopInteraction;
 using static PlayerLoopProfiles.PlayerLoopProfile;
 
 public static class ProfileIdle
@@ -30,16 +30,16 @@ public static class ProfileIdle
             .FilterSystems(filter)
             .FilterType(FilterType.KEEP)
             .InteractionCallback(Interaction)
-            .IgnoredInteractions(InteractionType.POINT)
+            .IgnoredInteractions(actionNames[(int)InteractionType.POINT])
             .Build();
 
         profile.PrintProfile();
         return profile;
     }
 
-    private static void Interaction(InteractionType pType)
+    private static void Interaction(string pType)
     {
-        if (pType == InteractionType.SCROLL_WHEEL)
+        if (pType == actionNames[(int)InteractionType.SCROLL_WHEEL])
         {
             return;
         }
