@@ -12,6 +12,9 @@ namespace PlayerLoopProfiles
         private static bool tempInteraction;
         private static PlayerLoopProfile profile;
 
+        /// <summary>
+        /// The active profile which is needed to invoke it's callbacks and get various other variables.
+        /// </summary>
         public static PlayerLoopProfile Profile 
         {
             private get => profile;
@@ -23,12 +26,20 @@ namespace PlayerLoopProfiles
             }
         }
 
+        /// <summary>
+        /// Custom PlayerLoopSystem which gets added to the PlayerLoop with all profiles.
+        /// </summary>
         public static PlayerLoopSystem UpdateSystem { get; private set; } = new PlayerLoopSystem()
         {
             type = typeof(PlayerLoopTimeout),
             updateDelegate = Update,
         };
 
+        /// <summary>
+        /// "Adds" a new interaction. 
+        /// This will invoke the current profiles 'InteractionCallback' with the passed string parameter as interaction.
+        /// Aside from that the current timer gets reset.
+        /// </summary>
         public static void AddInteraction(string pInteraction)
         {
             if (!Profile.IgnoredInteraction.Contains(pInteraction))
@@ -42,6 +53,10 @@ namespace PlayerLoopProfiles
             }
         }
 
+        /// <summary>
+        /// A custom update method which gets added to the playerloop on any profile. 
+        /// Used to ensure it gets called even if all other systems get removed.
+        /// </summary>
         public static void Update()
         {
             if (!Application.isPlaying)
