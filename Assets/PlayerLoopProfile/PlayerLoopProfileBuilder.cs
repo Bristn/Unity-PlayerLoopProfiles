@@ -104,9 +104,9 @@ namespace PlayerLoopProfiles
 
         /// <summary>
         /// Any interaction in this collection will not reset the interaction timeout, but the 'InteractionCallback' is still invoked.
-        /// For example if InteractionType.POINT was in this collection any mouse movement would not reset the timeout timer,
         /// meaning if the user only moves the mouse the 'TimeoutCallback' will still be called after 'TimeoutDuration' seconds.
         /// By default no interactions are ignored.
+        /// In the example InteractionType.POINT is in this collection mouse movement will not reset the timeout timer,
         /// </summary>
         public PlayerLoopProfileBuilder IgnoredInteractions(params string[] pInteraction)
         {
@@ -116,9 +116,9 @@ namespace PlayerLoopProfiles
 
         /// <summary>
         /// Any interaction in this collection will not reset the interaction timeout, but the 'InteractionCallback' is still invoked.
-        /// For example if InteractionType.POINT was in this collection any mouse movement would not reset the timeout timer,
         /// meaning if the user only moves the mouse the 'TimeoutCallback' will still be called after 'TimeoutDuration' seconds.
         /// By default no interactions are ignored.
+        /// In the example InteractionType.POINT is in this collection mouse movement will not reset the timeout timer,
         /// </summary>
         public PlayerLoopProfileBuilder IgnoredInteractions(List<string> pInteraction)
         {
