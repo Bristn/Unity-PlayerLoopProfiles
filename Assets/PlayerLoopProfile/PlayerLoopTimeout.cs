@@ -29,18 +29,6 @@ namespace PlayerLoopProfiles
             updateDelegate = Update,
         };
 
-
-        public static void Update()
-        {
-            if (!Application.isPlaying)
-            {
-                return;
-            }
-
-            UpdateTimeout();
-        }
-
-
         public static void AddInteraction(string pInteraction)
         {
             if (!Profile.IgnoredInteraction.Contains(pInteraction))
@@ -54,8 +42,13 @@ namespace PlayerLoopProfiles
             }
         }
 
-        public static void UpdateTimeout()
+        public static void Update()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (PlayerLoopManager.PreventProfileChange > 0 || Profile.TimeoutAction == null || timeoutHappened || tempInteraction || SelectedUIElement())
             {
                 ResetTimer();
