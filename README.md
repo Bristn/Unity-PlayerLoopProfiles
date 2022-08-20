@@ -4,9 +4,9 @@ A collection of classes and methods to create, manage and activate different Pla
 
 ## Background
 
-After looking into making crossplatform "Non-games" with unity, one of the most commonly stated issues/problems peoply point out are: 
+After looking into making crossplatform "Non-games" with Unity, one of the most commonly stated issues/problems peoply point out are: 
 
-- The UI building/designing with unity is not as good as with other crossplatform environments. 
+- The UI building/designing with Unity is not as good as with other crossplatform environments. 
 - Unity uses a lot of CPU without actually doing anything. In other words even static UIs have a relatively high constant CPU usage.
 
 The first point is pretty subjective and I think is lessened with the "new" UI-Toolkit. The other point is what this plugin is focused on tackeling to some extend.
@@ -27,7 +27,7 @@ This isn't a one-fits-all method of improving resource usage. In a "Non-game" co
 
 Futhermore the documentation of the systems contained in the PlayerLoop is a bit lacking and you probably need to to a bit of trial and error when removing systems.
 
-If your still curious and want to see example usages, checkout the [Example Project](#example-project) or a slightly more complex [App using this plugin](https://www.google.com/).
+If your still curious and want to see example usages, see [code examples](#code-examples).
 
 ## Project Requirements
 
@@ -37,8 +37,125 @@ If your still curious and want to see example usages, checkout the [Example Proj
 
 ## Installation
 
+- As you migh have noticed this repository contains a complete Unity project. To use the plugin you only need the `Plugins` folder. All other files are related to the examlpe scene.
 - [Download the repository](https://github.com/Bristn/Unity-PlayerLoopProfiles/archive/refs/heads/master.zip)  and copy the `Assets/Plugins` folder into your Unity's `Assets` directory
 
 
 ## Code examples
 
+The following are some smaller code examples. For a basic overview I suggest checking out the scripts in [Assets/Example/Scripts/](https://github.com/Bristn/Unity-PlayerLoopProfiles/archive/refs/heads/master.zip).
+For an even more complex example checkout the [simple pinger app](https://www.google.com/) I made to demonstrate the plugin .
+
+### Action maps
+
+If you want to use the interaction callback system you need to add the actions maps you want to react to. In the example it's using the default UI action map. The interaction callbacks get invoked with the action name. Because of this I like to create an enum and a string array with the action names.
+
+A small example, not all UI actions are included check [Assets/Example/Scripts/Example.cs](https://www.google.com/) for the full code.
+
+    using PlayerLoopProfiles;
+
+    ...
+
+    [SerializeField] private InputActionAsset InputAsset;
+
+    public enum InteractionType
+    {
+        NAVIGATE,
+        POINT,
+        RIGHT_CLICK,
+    }
+
+    public static List<string> actionNames = new string[]
+    {
+        "Navigate",
+        "Point",
+        "RightClick"
+    }.ToList();
+
+    void Start()
+    {
+        PlayerLoopInteraction.AddActionMap(InputAsset.FindActionMap("UI"));
+    }
+
+With the `InputAsset` being a copy of the default UI action asset. 
+
+### Create profiles
+
+To create a new profile use the PlayerLoopProfileBuilder. There are a few methods to further customize the profile. As before the following code is a small snippet. See the classes [Assets/Example/Scripts/ProfileNormal.cs](https://www.google.com/) and [Assets/Example/Scripts/ProfileIdle.cs](https://www.google.com/).
+
+    public static PlayerLoopProfile GetProfileNormal()
+    {
+        PlayerLoopProfile profile = new PlayerLoopProfileBuilder()
+            .TimeoutCallback(Timeout)
+            .TimeoutDuration(0.1f)
+            .Build();
+        return profile;
+    }
+
+    private static void Timeout()
+    {
+        Debug.Log("There hasn't been any user interaction for 0.1 seconds");
+    }
+
+The above profile keeps all systems of the PlayerLoop, but invokes the TimeoutCallback after a the user hasn't interacted with the app for a longer period time.
+
+---
+
+    public static PlayerLoopProfile GetProfileIdle()
+    {
+        List<Type> filter = new List<Type>(new Type[]
+        {
+            typeof(TimeUpdate), // Causes high CPU usage when removed
+
+    #if !UNITY_ANDROID || UNITY_EDITOR 
+            typeof(PostLateUpdate.PresentAfterDraw), // Some oddities with this system
+    #endif
+        });
+
+        PlayerLoopProfile profile = new PlayerLoopProfileBuilder()
+            .FilterSystems(filter)
+            .FilterType(FilterType.KEEP)
+            .InteractionCallback(Interaction)
+            .KeepInteractionSystems(true)
+            .Build();
+
+        return profile;
+    }
+
+    private static void Interaction(string pType)
+    {
+        Debug.Log("There has been a interaction whilst the idle profile is active");
+    }
+
+This profile removes every system expect ones which are responsible for the Input System. If there is any interaction whilst the profile is active the `Interaction` method is called with one of the `actionNames` we defined earlier.
+
+### Add the profile
+
+Before you can activate a profile you need to register it. This way you can create a profile once, register it with a custom enum or a integer key, then activate it using the key. For this example I chose to use a custom enum.
+
+    public enum Profile
+    {
+        IDLE,
+        NORMAL,
+    }
+
+    private static void RegisterProfiles()
+    {
+        PlayerLoopManager.AddProfile(Profile.IDLE, GetProfileIdle());
+        PlayerLoopManager.AddProfile(Profile.NORMAL, GetProfileNormal());
+    }
+
+### Set the active profile
+
+To activate a profile you need to call the following method with the key for the desired profile.
+
+    private static void ActivateIdle()
+    {
+        PlayerLoopManager.SetActiveProfile(Profile.IDLE);
+    }
+
+In the exmaple provided the `Timeout` and `Interaction` methods are altered to switch to the respective profiles.
+
+## Feedback / Suggestions
+
+If you have any feedback or suggestions feel free to share them with me, any feedback is welcome.
