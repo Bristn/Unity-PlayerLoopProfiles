@@ -45,11 +45,11 @@ namespace PlayerLoopProfiles
             if (!Profile.IgnoredInteraction.Contains(pInteraction))
             {
                 tempInteraction = true;
-            }
-            
-            if (Profile.InteractionAction != null)
-            {
-                Profile.InteractionAction.Invoke(pInteraction);
+
+                if (Profile.InteractionAction != null)
+                {
+                    Profile.InteractionAction.Invoke(pInteraction);
+                }
             }
         }
 
