@@ -18,9 +18,17 @@ After further searching I stumbled across [Building Non-Game Software in Unity -
 
 ## Resource usage in comparison
 
-- // todo
+[![Youtube video](https://img.youtube.com/vi/WG6ZjgXcVds/0.jpg)](https://www.youtube.com/watch?v=WG6ZjgXcVds)
 
-----
+In case the link above isn't working, try [this one](https://www.youtube.com/watch?v=WG6ZjgXcVds).
+
+As a quick summary of the video a table comparing the different CPU usages.
+
+|                               | Deafult PlayerLoop    | Custom PlayerLoop profiles    |
+| -------------                 | -------------         | -------------                 |
+| Base usage                    | ~5%                   | ~5%                           |
+| Without recent interaction    | ~5%                   | ~1%                           |
+| Peaks upon interaction        | ~15%                  | ~16%                          |
 
 ## Disclaimer
 This isn't a one-fits-all method of improving resource usage. In a "Non-game" context it's easy to remove a big chunk of the PlayerLoop, as most of it is never used (e.g. AI, Physics, etc.). Often times it's even possible to momentarily stop rendering of new frames if the user isn't interacting with the application. In games however, specificly in gameplay, it's harder to remove much of the PlayerLoop as many of the systems are used. Of course it's still good to remove systems your not actively using in your game, but besides from menus, in which most action is paused, you wont be able to drastically reduce resource usage with this plugin.
