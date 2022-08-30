@@ -51,14 +51,14 @@ If your still curious and want to see example usages, see [code examples](#code-
 
 ## Code examples
 
-The following are some smaller code examples. For a basic overview I suggest checking out the scripts in [Assets/Example/Scripts/](https://github.com/Bristn/Unity-PlayerLoopProfiles/archive/refs/heads/master.zip).
-For an even more complex example checkout the [simple pinger app](https://www.google.com/) I made to demonstrate the plugin .
+The following are some smaller code examples. For a basic overview I suggest checking out the scripts in [Assets/Example/Scripts/](https://github.com/Bristn/Unity-PlayerLoopProfiles/tree/master/Assets/Example/Scripts).
+For an even more complex example checkout the [simple pinger app](https://github.com/Bristn/Unity-SimplePinger) I made to demonstrate the plugin.
 
 ### Action maps
 
 If you want to use the interaction callback system you need to add the actions maps you want to react to. In the example it's using the default UI action map. The interaction callbacks get invoked with the action name. Because of this I like to create an enum and a string array with the action names.
 
-A small example, not all UI actions are included check [Assets/Example/Scripts/Example.cs](https://www.google.com/) for the full code.
+A small example, not all UI actions are included check [Assets/Example/Scripts/Example.cs](https://github.com/Bristn/Unity-PlayerLoopProfiles/blob/master/Assets/Example/Scripts/Example.cs) for the full code.
 
     using PlayerLoopProfiles;
 
@@ -89,7 +89,7 @@ With the `InputAsset` being a copy of the default UI action asset.
 
 ### Create profiles
 
-To create a new profile use the PlayerLoopProfileBuilder. There are a few methods to further customize the profile. As before the following code is a small snippet. See the classes [Assets/Example/Scripts/ProfileNormal.cs](https://www.google.com/) and [Assets/Example/Scripts/ProfileIdle.cs](https://www.google.com/).
+To create a new profile use the PlayerLoopProfileBuilder. There are a few methods to further customize the profile. As before the following code is a small snippet. See the classes [Assets/Example/Scripts/ProfileNormal.cs](https://github.com/Bristn/Unity-PlayerLoopProfiles/blob/master/Assets/Example/Scripts/ProfileNormal.cs) and [Assets/Example/Scripts/ProfileIdle.cs](https://github.com/Bristn/Unity-PlayerLoopProfiles/blob/master/Assets/Example/Scripts/ProfileIdle.cs).
 
     public static PlayerLoopProfile GetProfileNormal()
     {
