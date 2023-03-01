@@ -2,6 +2,10 @@
 
 A collection of classes and methods to create, manage and activate different PlayerLoop profiles in order to reduce resource usage, mainly CPU usage, in specific states/stages of your application lifecycle.  
 
+## Disclaimer
+
+**Eventhough I think adjusting the PlayerLoop to fit ones needs is a good way of improving the performance of a Unity based app/game, I'd suggest writing your own solution.**
+
 ## Background
 
 After looking into making crossplatform "Non-games" with Unity, one of the most commonly stated issues/problems peoply point out are: 
